@@ -12,5 +12,5 @@ class Customer {
   }
 }
 
-let veronica = new Customer(Veronica, Barredo, veronica@mexicana.com)
-let alex = new Customer(Alex, Kimoto, alex@gmail.com)
+let veronica = new Customer('Veronica', 'Barredo', 'veronica@mexicana.com')
+let alex = new Customer('Alex', 'Kimoto', 'alex@gmail.com')
