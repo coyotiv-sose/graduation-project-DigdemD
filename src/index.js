@@ -4,11 +4,21 @@ class Customer {
   name
   surname
   email
+  riskType
 
   constructor(name, surname, email) {
     this.name = name
     this.surname = surname
     this.email = email
+    this.riskType = 'ScaredyCat'
+  }
+
+  get riskType() {
+    return this.riskType
+  }
+
+  set riskType(type) {
+    this.riskType = risk
   }
 }
 
