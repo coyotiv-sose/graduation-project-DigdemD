@@ -1,0 +1,49 @@
+
+@startuml DigdemClientSide
+left to right direction
+actor Client as g
+/'package ClientWireframe {
+  actor Chef as
+  actor "Food Critic" as fcc
+}'/
+package GybingFxTrading {
+  usecase "New User Register" as UC1
+  usecase "Login" as UC2
+  usecase "Execute Trade" as UC3
+  usecase "Execute Trade" as UC4
+  usecase "Open New Account" as UC5
+  usecase "Update Account" as UC6
+  usecase "Delete Account" as UC7
+  usecase "Update Settings" as UC8
+  usecase "View Trade History" as UC9
+  usecase "Export File" as UC10
+
+}
+
+(invalid Email & Password) .> (UC1) : extends
+(Trade rejected) .> (UC3) : extends
+(Account Balance is not '0') .> (UC7) : extends
+ (UC1) .> (Fill Up Register Form): include
+(UC1) .> (Get User Id): include
+(UC1) .> (Get Risk Group): include
+(UC3) .> (Get Trade Id): include
+(UC3) .> (Get updated Acc balance): include
+(UC5) .> (Balance transfer): include
+
+
+g --> UC1
+g --> UC2
+g --> UC3
+g --> UC4
+g --> UC5
+g --> UC6
+g --> UC7
+g --> UC8
+g --> UC9
+g --> UC10
+@enduml
+
+
+
+//fatal: 'clientUseCaseDiagram.puml' does not appear to be a git repository
+//fatal: Could not read from remote repository.
