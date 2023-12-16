@@ -1,26 +1,10 @@
-console.log("Hi coyote, let's have some JavaScript fun!")
+const axios = require('axios')
 
-class Customer {
-  name
-  surname
-  email
-  riskType
-
-  constructor(name, surname, email) {
-    this.name = name
-    this.surname = surname
-    this.email = email
-    this.riskType = 'ScaredyCat'
-  }
-
-  get riskType() {
-    return this.riskType
-  }
-
-  set riskType(type) {
-    this.riskType = risk
-  }
+async function main() {
+  const john = await axios.post('http://localhost:3000/users', { name: 'John' })
+  console.log(john.data)
+  const callUsers = await axios.get('http://localhost:3000/users')
+  console.log(callUsers.data)
 }
 
-let veronica = new Customer('Veronica', 'Barredo', 'veronica@mexicana.com')
-let alex = new Customer('Alex', 'Kimoto', 'alex@gmail.com')
+main()
