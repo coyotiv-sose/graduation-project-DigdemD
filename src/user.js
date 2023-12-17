@@ -5,7 +5,6 @@ class User {
   static create(name) {
     const user = new User(name)
     User.list.push(user)
-    return user
   }
   static list = []
 }

@@ -10,6 +10,8 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   const user = User.create(req.body.name)
   console.log(req.body.name)
-  res.send(user)
+  console.log(User.list)
+  console.log(User.name[Heidi])
+  res.send(User.list.name[Heidi])
 })
 module.exports = router
