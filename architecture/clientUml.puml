@@ -16,8 +16,7 @@ package GybingFxTrading {
   usecase "Export File" as UC10
 
 }
-
-g --> UC1
+ --> UC1
 g --> UC2
 g --> UC3
 g --> UC4

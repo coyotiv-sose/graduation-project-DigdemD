@@ -1,13 +1,14 @@
-const UserFx = require('./userFx.js')
+const User = require('./user.js')
 
 class Account {
   #balance = 0
   #transactions = []
   #overdraft = 0
   static accIdCounter = 1
-  constructor(accountCurrency) {
+  constructor(currency, owner) {
     this.accountId = Account.accIdCounter++
-    this.accountCurrency = accountCurrency
+    this.currency = currency
+    this.owner = owner
   }
   #setBalance = newAmount => {
     if (newAmount < -this.#overdraft) throw new Error(`Balance can not go below -${this.#overdraft}`)
@@ -35,14 +36,5 @@ class Account {
     return this.#transactions.slice()
   }
 }
-
-const account = new Account('USD')
-//account.deposit(200)
-//account.deposit(100)
-//account.deposit(2000)
-
-console.log('account balance', account.balance)
-console.log('transaction history', account.transactions)
-console.log(account)
 
 module.exports = Account
