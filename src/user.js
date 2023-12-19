@@ -25,7 +25,13 @@ class User {
     this.accounts.push(newAccount)
     return newAccount
   }
-
+  deleteAccount(currency, accId) {
+    for (let i = 0; i < this.accounts.length; i++) {
+      if (this.accounts[i].accId === accId) {
+        this.accounts[i].status = 'Passive'
+      }
+    }
+  }
   executeTrade(buyAmount, sellAmount) {
     this.countOfTrade += 1
     this.tradeVolume += buyAmount
