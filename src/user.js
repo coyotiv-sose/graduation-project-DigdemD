@@ -70,7 +70,24 @@ class User {
       }
     }
   } //need to talk about logic
-  updateSettings() {}
+  updateSettings(dateOfBirth, currencyPairs, minTradeLimit, maxTradeLimit, clickAndTrade) {
+    if (dateOfBirth !== null) {
+      this.dateOfBirth = dateOfBirth
+      console.log('dateOfBirth after update:', this.dateOfBirth)
+    }
+    if (currencyPairs !== null) {
+      this.currencyPairs = currencyPairs
+    }
+    if (minTradeLimit !== null) {
+      this.minTradeLimit = minTradeLimit
+    }
+    if (maxTradeLimit !== null) {
+      this.maxTradeLimit = maxTradeLimit
+    }
+    // if (clickAndTrade !== null) {
+    //   this.clickAndTrade = clickAndTrade
+    // }
+  }
 
   static create(name) {
     const user = new User(name)

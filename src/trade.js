@@ -1,3 +1,6 @@
+const User = require('./user.js')
+const Account = require('./account.js')
+
 class Trade {
   //to check if trade could be done(account availability)
   //return success/fail message
@@ -7,3 +10,5 @@ class Trade {
   //if not succeed => return error message
   //if not succeed => insert trade history
 }
+
+module.exports = Trade
