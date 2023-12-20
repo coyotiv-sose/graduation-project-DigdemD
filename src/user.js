@@ -1,8 +1,10 @@
 const Account = require('./account.js')
+const Trade = require('./trade.js')
 
 class User {
   static idCounter = 1
   accounts = []
+  trades = []
   constructor(name, surname, email, mobile) {
     this.name = name
     this.surname = surname
@@ -32,9 +34,33 @@ class User {
       }
     }
   }
-  executeTrade(buyAmount, sellAmount) {
+  executeTrade(
+    tradeId,
+    currencyPair,
+    buySellFlag,
+    executionRate,
+    amount,
+    valueDate,
+    buyAccount,
+    sellAccount,
+    tradeTime
+  ) {
+    const newTrade = new Trade(
+      tradeId,
+      currencyPair,
+      buySellFlag,
+      executionRate,
+      amount,
+      valueDate,
+      buyAccount,
+      sellAccount,
+      tradeTime
+    )
     this.countOfTrade += 1
-    this.tradeVolume += buyAmount
+    this.tradeVolume += amount
+    this.trades.push(newTrade)
+
+    return newTrade
   }
 
   internalBalanceTransfer(amount, { from, to }) {

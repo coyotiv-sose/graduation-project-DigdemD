@@ -1,6 +1,7 @@
 const axios = require('axios')
 const User = require('./user.js')
 const Account = require('./account.js')
+const Trade = require('./trade.js')
 
 async function main() {
   // const heidi = await axios.post('http://localhost:3000/users', { name: 'Heidi' })
@@ -38,6 +39,10 @@ elisa.deleteAccount('CHF', 4)
 console.log(max)
 
 console.log(`------`)
-console.log(max)
-max.updateSettings('1.1.1999', ['USDTRY', 'EURUSD', 'CADTRY'], 2000, null, null)
-console.log(max)
+//console.log(max)
+//max.updateSettings('1.1.1999', ['USDTRY', 'EURUSD', 'CADTRY'], 2000, null, null)
+//console.log(max)
+/*trade Class and executeTrade Testing
+max.executeTrade(null, 'EURUSD', 'buy', 1.2, 1000, '2023-12-31', 1, 2, '2022-01-01')
+const tradelistOfMax = max.trades
+console.log(tradelistOfMax)*/
