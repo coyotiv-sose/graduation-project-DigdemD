@@ -4,18 +4,8 @@ const Account = require('./account.js')
 
 class Trade {
   static tradeIdCounter = 1
-  constructor(
-    tradeId,
-    // user,??
-    currencyPair,
-    buySellFlag,
-    executionRate,
-    amount,
-    valueDate,
-    buyAccount,
-    sellAccount
-  ) {
-    this.tradeId = Account.tradeIdCounter++
+  constructor(tradeId, currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount) {
+    this.tradeId = Trade.tradeIdCounter++
     this.currencyPair = currencyPair
     this.buySellFlag = buySellFlag
     this.executionRate = executionRate
@@ -39,6 +29,25 @@ class Trade {
   //if succeed => insert trade history
   //if not succeed => return error message
   //if not succeed => insert trade history
+
+  static create({ tradeId, currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount }) {
+    const newTrade = new Trade(
+      tradeId,
+      currencyPair,
+      buySellFlag,
+      executionRate,
+      amount,
+      valueDate,
+      buyAccount,
+      sellAccount
+    )
+
+    Trade.list.push(newTrade)
+
+    return newTrade
+  }
+
+  static list = []
 }
 
 module.exports = Trade

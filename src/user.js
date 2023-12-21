@@ -123,8 +123,14 @@ class User {
   }
 
   static create({ name, surname, mobile, email }) {
-    return new User(name, surname, mobile, email)
+    const newUser = new User(name, surname, email, mobile)
+
+    User.list.push(newUser)
+
+    return newUser
   }
+
+  static list = []
 }
 
 module.exports = User

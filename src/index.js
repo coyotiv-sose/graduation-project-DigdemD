@@ -7,6 +7,7 @@ const { response } = require('express')
 axios.defaults.baseURL = 'http://localhost:3000'
 
 async function main() {
+  //create new User
   const elisa = await axios.post('/users', {
     name: 'Elisa',
     surname: 'Lam',
@@ -21,11 +22,40 @@ async function main() {
     email: 'max@gmail.com',
   })
 
+  //delete user
+  await axios.delete('/users/Max')
+  //update user
+  const updatedElisa = await axios.put('/users/Elisa', { surname: 'Lam Edith', email: 'elisaupdated@gmail.com' })
+  //create new Trade
+  const newTrade1 = await axios.post('/trades', {
+    currencyPair: 'EURUSD',
+    buySellFlag: 'Buy',
+    executionRate: '1.2',
+    amount: 999900,
+    valueDate: '01.01.2023',
+    buyAccount: 1,
+    sellAccount: 2,
+    userId: elisa.data.id,
+  })
+  console.log(newTrade1.data)
+
+  const newTrade2 = await axios.post('/trades', {
+    currencyPair: 'EURUSD',
+    buySellFlag: 'Sell',
+    executionRate: '1.22',
+    amount: 88800,
+    valueDate: '01.01.2023',
+    buyAccount: 1,
+    sellAccount: 2,
+    userId: elisa.data.id,
+  })
+
+  //tradeList
+  const callTrades = await axios.get('/trades')
+
+  //userList
   const callUsers = await axios.get('/users')
   console.log(callUsers.data)
-
-  // const allUsers = await axios.get('/users')
-  // console.log('allUsers: ', allUsers.data)
 }
 
 main()
