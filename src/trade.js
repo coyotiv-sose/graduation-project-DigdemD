@@ -1,5 +1,6 @@
 const User = require('./user.js')
 const Account = require('./account.js')
+//const { getMaxListeners } = require('json2csv/JSON2CSVTransform.js')
 
 class Trade {
   static tradeIdCounter = 1
@@ -12,8 +13,7 @@ class Trade {
     amount,
     valueDate,
     buyAccount,
-    sellAccount,
-    tradeTime
+    sellAccount
   ) {
     this.tradeId = Account.tradeIdCounter++
     this.currencyPair = currencyPair
@@ -23,7 +23,7 @@ class Trade {
     this.valueDate = valueDate
     this.buyAccount = buyAccount
     this.sellAccount = sellAccount
-    this.tradeTime = tradeTime
+    this.createdAt = new Date()
   }
   get buyCurrency() {
     return this.currencyPair.slice(0, 3)

@@ -1,5 +1,7 @@
 const Account = require('./account.js')
 const Trade = require('./trade.js')
+const { Parser } = require('json2csv')
+const fs = require('fs') //filesystem module in node.js
 
 class User {
   static idCounter = 1
@@ -22,40 +24,20 @@ class User {
   tradeVolume = 0 //USD
   id = User.idCounter++
 
-  openAccount(currency, accId) {
+  openAccount(currency) {
     const newAccount = new Account(currency, this.id)
     this.accounts.push(newAccount)
     return newAccount
   }
-  deleteAccount(currency, accId) {
+  deleteAccount(accId) {
     for (let i = 0; i < this.accounts.length; i++) {
       if (this.accounts[i].accId === accId) {
         this.accounts[i].status = 'Passive'
       }
     }
   }
-  executeTrade(
-    tradeId,
-    currencyPair,
-    buySellFlag,
-    executionRate,
-    amount,
-    valueDate,
-    buyAccount,
-    sellAccount,
-    tradeTime
-  ) {
-    const newTrade = new Trade(
-      tradeId,
-      currencyPair,
-      buySellFlag,
-      executionRate,
-      amount,
-      valueDate,
-      buyAccount,
-      sellAccount,
-      tradeTime
-    )
+  executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
+    const newTrade = new Trade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount)
     this.countOfTrade += 1
     this.tradeVolume += amount
     this.trades.push(newTrade)
@@ -110,16 +92,39 @@ class User {
     if (maxTradeLimit !== null) {
       this.maxTradeLimit = maxTradeLimit
     }
-    // if (clickAndTrade !== null) {
-    //   this.clickAndTrade = clickAndTrade
-    // }
+    if (clickAndTrade !== null) {
+      this.clickAndTrade = clickAndTrade
+    }
+  }
+  exportFile() {
+    const tradeHistory = this.trades.map(trade => {
+      return {
+        tradeId: trade.tradeId,
+        currencyPair: trade.currencyPair,
+        buySellFlag: trade.buySellFlag,
+        executionRate: trade.executionRate,
+        amount: trade.amount,
+        valueDate: trade.valueDate,
+        buyAccount: trade.buyAccount,
+        sellAccount: trade.sellAccount,
+        tradeTime: trade.tradeTime,
+      }
+    })
+    //creating a new instance of the Parser object from the json2csv library.
+    const json2csvParser = new Parser()
+    //calling the parse method on our json2csvParser object and passing in our tradeHistory data.
+    //The parse method takes  JSON data and converts it into a CSV string.
+    const csv = json2csvParser.parse(tradeHistory)
+
+    fs.writeFile(`${this.name}_trade_history.csv`, csv, err => {
+      if (err) throw err
+      console.log('Trade history has been saved!')
+    })
   }
 
-  static create(name) {
-    const user = new User(name)
-    User.list.push(user)
+  static create({ name, surname, mobile, email }) {
+    return new User(name, surname, mobile, email)
   }
-  static list = []
 }
 
 module.exports = User
