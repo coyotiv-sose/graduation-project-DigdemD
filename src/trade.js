@@ -1,6 +1,5 @@
 const User = require('./user.js')
 const Account = require('./account.js')
-//const { getMaxListeners } = require('json2csv/JSON2CSVTransform.js')
 
 class Trade {
   static tradeIdCounter = 1

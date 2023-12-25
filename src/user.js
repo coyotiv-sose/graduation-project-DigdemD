@@ -14,7 +14,6 @@ class User {
     this.mobile = mobile
   }
   RiskGroup = 'starter'
-  mobile = ''
   dateOfBirth = ''
   currencyPairs = []
   minTradeLimit = 1000 //USD
@@ -25,7 +24,7 @@ class User {
   id = User.idCounter++
 
   openAccount(currency) {
-    const newAccount = new Account(currency, this.id)
+    const newAccount = Account.create({ currency: currency, owner: this.id })
     this.accounts.push(newAccount)
     return newAccount
   }
@@ -37,7 +36,15 @@ class User {
     }
   }
   executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
-    const newTrade = new Trade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount)
+    const newTrade = Trade.create({
+      currencyPair,
+      buySellFlag,
+      executionRate,
+      amount,
+      valueDate,
+      buyAccount,
+      sellAccount,
+    })
     this.countOfTrade += 1
     this.tradeVolume += amount
     this.trades.push(newTrade)

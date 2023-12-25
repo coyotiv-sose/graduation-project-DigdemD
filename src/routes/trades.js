@@ -2,6 +2,7 @@ const express = require('express')
 const User = require('../user')
 const Trade = require('../trade')
 const router = express.Router()
+const Account = require('../account')
 
 /* GET trades listing. */
 router.get('/', function (req, res, next) {

@@ -4,7 +4,6 @@ var router = express.Router()
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  console.log(`I can come here`)
   res.send(User.list)
 })
 //get single user(dynamic)
@@ -13,6 +12,13 @@ router.get('/:userName', function (req, res, next) {
   const user = User.list.find(user => user.name === userName)
 
   res.send(user)
+})
+//get single user/account(dynamic)
+router.get('/:userName/:accounts', function (req, res, next) {
+  const { userName, accounts } = req.params
+  const user = User.list.find(user => user.name === userName)
+
+  res.send(user.accounts)
 })
 
 //post new user

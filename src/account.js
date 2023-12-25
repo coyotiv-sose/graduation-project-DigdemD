@@ -36,6 +36,15 @@ class Account {
   get transactions() {
     return this.#transactions.slice()
   }
+  static create({ currency, owner }) {
+    const newAccount = new Account(currency, owner)
+
+    Account.list.push(newAccount)
+
+    return newAccount
+  }
+
+  static list = []
 }
 
 module.exports = Account

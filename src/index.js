@@ -1,8 +1,4 @@
 const axios = require('axios')
-const User = require('./user.js')
-const Account = require('./account.js')
-const Trade = require('./trade.js')
-const { response } = require('express')
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
@@ -20,6 +16,13 @@ async function main() {
     surname: 'Michael',
     mobile: '5555',
     email: 'max@gmail.com',
+  })
+
+  const michael = await axios.post('/users', {
+    name: 'Michael',
+    surname: 'Schumacher',
+    mobile: '6364893049',
+    email: 'msc@gmail.com',
   })
 
   //delete user
@@ -49,13 +52,31 @@ async function main() {
     sellAccount: 2,
     userId: elisa.data.id,
   })
-
+  //create new Account
+  const newAccount1 = await axios.post('/accounts', {
+    currency: 'EUR',
+    owner: elisa.data.id,
+  })
+  const newAccount2 = await axios.post('/accounts', {
+    currency: 'JPY',
+    owner: elisa.data.id,
+  })
+  //update Account
+  const updatedAccount = await axios.put('/accounts/1', {
+    newValues: {
+      status: 'Passive',
+      //name: 'Hedge Account',
+    },
+  })
   //tradeList
   const callTrades = await axios.get('/trades')
 
   //userList
   const callUsers = await axios.get('/users')
   console.log(callUsers.data)
+  //accountList
+  const callAccounts = await axios.get('/users')
+  console.log(callAccounts.data)
 }
 
 main()
