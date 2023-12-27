@@ -34,10 +34,9 @@ router.post('/', function (req, res, next) {
 })
 
 //delete user
-router.delete('/:userName', function (req, res, next) {
-  const { userName } = req.params
-  console.log(`users name is here${userName}`)
-  const userIndex = User.list.findIndex(user => user.name === userName)
+router.delete('/:userId', function (req, res, next) {
+  const { userId } = req.params
+  const userIndex = User.list.findIndex(user => user.id == userId)
   User.list.splice(userIndex, 1)
 
   res.sendStatus(200)

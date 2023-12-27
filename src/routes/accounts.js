@@ -10,10 +10,10 @@ router.get('/', function (req, res, next) {
 })
 //post (create) new Account
 router.post('/', function (req, res, next) {
-  const { accId, currency, owner } = req.body
+  const { currency, owner } = req.body
   const user = User.list.find(user => user.id === req.body.owner)
 
-  const newAccount = user.openAccount(accId, currency, owner)
+  const newAccount = user.openAccount(currency, owner)
 
   res.status(200).send(newAccount)
 })

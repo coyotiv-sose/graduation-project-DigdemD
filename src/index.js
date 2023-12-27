@@ -26,7 +26,7 @@ async function main() {
   })
 
   //delete user
-  await axios.delete('/users/Max')
+  await axios.delete('/users/2')
   //update user
   const updatedElisa = await axios.put('/users/Elisa', { surname: 'Lam Edith', email: 'elisaupdated@gmail.com' })
   //create new Trade
