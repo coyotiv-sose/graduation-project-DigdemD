@@ -14,11 +14,18 @@ router.get('/:userName', function (req, res, next) {
   res.send(user)
 })
 //get single user/account(dynamic)
-router.get('/:userName/:accounts', function (req, res, next) {
+router.get('/:userName/accounts', function (req, res, next) {
   const { userName, accounts } = req.params
   const user = User.list.find(user => user.name === userName)
 
   res.send(user.accounts)
+})
+//get single user/trade(dynamic)
+router.get('/:userName/trades', function (req, res, next) {
+  const { userName } = req.params
+  const user = User.list.find(user => user.name === userName)
+
+  res.send(user.trades)
 })
 
 //post new user
