@@ -42,10 +42,10 @@ router.delete('/:userId', function (req, res, next) {
   res.sendStatus(200)
 })
 //update user
-router.put('/:userName', function (req, res, next) {
-  const { userName } = req.params
+router.put('/:userId', function (req, res, next) {
+  const { userId } = req.params
   const { surname, email } = req.body
-  const user = User.list.find(user => user.name === userName)
+  const user = User.list.find(user => user.id == userId)
   user.surname = surname
   user.email = email
 
