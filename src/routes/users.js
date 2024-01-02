@@ -17,8 +17,8 @@ router.get('/:userName', function (req, res, next) {
 router.get('/:userName/accounts', function (req, res, next) {
   const { userName, accounts } = req.params
   const user = User.list.find(user => user.name === userName)
-
-  res.send(user.accounts)
+  //res.send(user.accounts)
+  res.send(user.accounts.map(account => ({ ...account, balance: account.balance })))
 })
 //get single user/trade(dynamic)
 router.get('/:userName/trades', function (req, res, next) {
@@ -38,6 +38,18 @@ router.post('/', function (req, res, next) {
   })
 
   res.status(200).send(newUser)
+})
+//post externalTransfer
+router.post('/transfers', function (req, res, next) {
+  const { userId, senderAccountId, receiverAccountId, amount } = req.body
+
+  const user = User.list.find(user => user.id === userId)
+  let transfer = user.externalBalanceTransfer(amount, {
+    from: senderAccountId,
+    to: receiverAccountId,
+  })
+
+  res.status(200).send(transfer)
 })
 
 //delete user

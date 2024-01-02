@@ -29,45 +29,62 @@ async function main() {
   await axios.delete('/users/2')
   //update user
   const updatedElisa = await axios.put('/users/1', { surname: 'Lam Edith', email: 'elisaupdated@gmail.com' })
-  //create new Trade
-  const newTrade1 = await axios.post('/trades', {
-    currencyPair: 'EURUSD',
-    buySellFlag: 'Buy',
-    executionRate: '1.2',
-    amount: 999900,
-    valueDate: '01.01.2023',
-    buyAccount: 1,
-    sellAccount: 2,
-    userId: elisa.data.id,
-  })
-  console.log(newTrade1.data)
 
-  const newTrade2 = await axios.post('/trades', {
-    currencyPair: 'EURUSD',
-    buySellFlag: 'Sell',
-    executionRate: '1.22',
-    amount: 88800,
-    valueDate: '01.01.2023',
-    buyAccount: 1,
-    sellAccount: 2,
-    userId: elisa.data.id,
-  })
   //create new Account
   const newAccount1 = await axios.post('/accounts', {
     currency: 'EUR',
     owner: elisa.data.id,
   })
+
+  console.log(newAccount1.data.balance)
   const newAccount2 = await axios.post('/accounts', {
     currency: 'JPY',
     owner: elisa.data.id,
   })
+  const newAccount3 = await axios.post('/accounts', {
+    currency: 'CAD',
+    owner: elisa.data.id,
+  })
   //update Account
-  const updatedAccount = await axios.put('/accounts/1', {
+  const updatedAccount = await axios.put('/accounts/3', {
     newValues: {
       status: 'Passive',
-      //name: 'Hedge Account',
+      name: 'Hedge Account',
     },
   })
+
+  //create external Transfer
+
+  const newExternalTransfer = await axios.post('users/transfers', {
+    userId: elisa.data.id,
+    senderAccountId: null,
+    receiverAccountId: 1,
+    amount: 50000,
+  })
+
+  //create new Trade
+  // const newTrade1 = await axios.post('/trades', {
+  //   currencyPair: 'EURUSD',
+  //   buySellFlag: 'Buy',
+  //   executionRate: '1.2',
+  //   amount: 999900,
+  //   valueDate: '01.01.2023',
+  //   buyAccount: 1,
+  //   sellAccount: 2,
+  //   userId: elisa.data.id,
+  // })
+  // console.log(newTrade1.data)
+
+  // const newTrade2 = await axios.post('/trades', {
+  //   currencyPair: 'EURUSD',
+  //   buySellFlag: 'Sell',
+  //   executionRate: '1.22',
+  //   amount: 88800,
+  //   valueDate: '01.01.2023',
+  //   buyAccount: 1,
+  //   sellAccount: 2,
+  //   userId: elisa.data.id,
+  // })
   //tradeList
   const callTrades = await axios.get('/trades')
 
@@ -92,7 +109,8 @@ main()
 // //console.log(maxAccount)
 // max.openAccount('EUR', 1)
 // console.log(max.accounts)
-// max.externalBalanceTransfer(10000, { from: null, to: 1 })
+//elisa.externalBalanceTransfer(10000, { from: null, to: 1 })
+//elisa.externalBalanceTransfer(10000, { from: null, to: 2 })
 // max.externalBalanceTransfer(50000, { from: null, to: 2 })
 // max.internalBalanceTransfer(1000, { from: 1, to: 2 })
 

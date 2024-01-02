@@ -36,20 +36,24 @@ class User {
     }
   }
   executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
-    const newTrade = Trade.create({
-      currencyPair,
-      buySellFlag,
-      executionRate,
-      amount,
-      valueDate,
-      buyAccount,
-      sellAccount,
-    })
-    this.countOfTrade += 1
-    this.tradeVolume += amount
-    this.trades.push(newTrade)
+    if (sellAccount.balance() >= amount) {
+      const newTrade = Trade.create({
+        currencyPair,
+        buySellFlag,
+        executionRate,
+        amount,
+        valueDate,
+        buyAccount,
+        sellAccount,
+      })
+      this.countOfTrade += 1
+      this.tradeVolume += amount
+      this.trades.push(newTrade)
 
-    return newTrade
+      return newTrade
+    } else {
+      throw new Error(`Balance is not available`)
+    }
   }
 
   internalBalanceTransfer(amount, { from, to }) {
