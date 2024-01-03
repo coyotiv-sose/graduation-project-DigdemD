@@ -36,7 +36,9 @@ class User {
     }
   }
   executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
-    if (sellAccount.balance() >= amount) {
+    console.log(`sell account ${sellAccount}`)
+
+    if (sellAccount.balance >= amount) {
       const newTrade = Trade.create({
         currencyPair,
         buySellFlag,

@@ -10,9 +10,11 @@ router.get('/', function (req, res, next) {
 })
 //post new Trade
 router.post('/', function (req, res, next) {
-  const { currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount } = req.body
-  const user = User.list.find(user => user.id === req.body.userId)
-
+  const { currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId, userId } = req.body
+  const user = User.list.find(user => user.id === userId)
+  const sellAccount = Account.list.find(account => account.accId === sellAccountId)
+  const buyAccount = Account.list.find(account => account.accId === buyAccountId)
+  console.log('buraya gelebiyorum')
   const newTrade = user.executeTrade(
     currencyPair,
     buySellFlag,

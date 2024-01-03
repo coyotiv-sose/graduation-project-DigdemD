@@ -63,17 +63,17 @@ async function main() {
   })
 
   //create new Trade
-  // const newTrade1 = await axios.post('/trades', {
-  //   currencyPair: 'EURUSD',
-  //   buySellFlag: 'Buy',
-  //   executionRate: '1.2',
-  //   amount: 999900,
-  //   valueDate: '01.01.2023',
-  //   buyAccount: 1,
-  //   sellAccount: 2,
-  //   userId: elisa.data.id,
-  // })
-  // console.log(newTrade1.data)
+  const newTrade1 = await axios.post('/trades', {
+    currencyPair: 'EURUSD',
+    buySellFlag: 'Buy',
+    executionRate: '1.2',
+    amount: 50,
+    valueDate: '01.01.2023',
+    buyAccountId: 2,
+    sellAccountId: 1,
+    userId: elisa.data.id,
+  })
+  console.log(newTrade1.data)
 
   // const newTrade2 = await axios.post('/trades', {
   //   currencyPair: 'EURUSD',
