@@ -1,6 +1,6 @@
 const Account = require('./account.js')
 const Trade = require('./trade.js')
-const { Parser } = require('json2csv')
+//const { Parser } = require('json2csv')
 const fs = require('fs') //filesystem module in node.js
 
 class User {
