@@ -1,8 +1,17 @@
 const Account = require('./account.js')
 const Trade = require('./trade.js')
+const mongoose = require('mongoose')
 //const { Parser } = require('json2csv')
 const fs = require('fs') //filesystem module in node.js
 
+const userSchema = new mongoose.Schema({
+  name: String,
+  surname: String,
+  email: String,
+  mobile: Number,
+  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
+  trades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trade' }],
+})
 class User {
   static idCounter = 1
   accounts = []
@@ -146,4 +155,6 @@ class User {
   static list = []
 }
 
-module.exports = User
+//module.exports = User
+
+module.exports = mongoose.model('User', userSchema)

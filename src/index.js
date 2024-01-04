@@ -26,54 +26,54 @@ async function main() {
   })
 
   //delete user
-  await axios.delete('/users/2')
-  //update user
-  const updatedElisa = await axios.put('/users/1', { surname: 'Lam Edith', email: 'elisaupdated@gmail.com' })
+  // await axios.delete('/users/2')
+  // //update user
+  // const updatedElisa = await axios.put('/users/1', { surname: 'Lam Edith', email: 'elisaupdated@gmail.com' })
 
-  //create new Account
-  const newAccount1 = await axios.post('/accounts', {
-    currency: 'EUR',
-    owner: elisa.data.id,
-  })
+  // //create new Account
+  // const newAccount1 = await axios.post('/accounts', {
+  //   currency: 'EUR',
+  //   owner: elisa.data.id,
+  // })
 
-  console.log(newAccount1.data.balance)
-  const newAccount2 = await axios.post('/accounts', {
-    currency: 'JPY',
-    owner: elisa.data.id,
-  })
-  const newAccount3 = await axios.post('/accounts', {
-    currency: 'CAD',
-    owner: elisa.data.id,
-  })
-  //update Account
-  const updatedAccount = await axios.put('/accounts/3', {
-    newValues: {
-      status: 'Passive',
-      name: 'Hedge Account',
-    },
-  })
+  // console.log(newAccount1.data.balance)
+  // const newAccount2 = await axios.post('/accounts', {
+  //   currency: 'JPY',
+  //   owner: elisa.data.id,
+  // })
+  // const newAccount3 = await axios.post('/accounts', {
+  //   currency: 'CAD',
+  //   owner: elisa.data.id,
+  // })
+  // //update Account
+  // const updatedAccount = await axios.put('/accounts/3', {
+  //   newValues: {
+  //     status: 'Passive',
+  //     name: 'Hedge Account',
+  //   },
+  // })
 
   //create external Transfer
 
-  const newExternalTransfer = await axios.post('users/transfers', {
-    userId: elisa.data.id,
-    senderAccountId: null,
-    receiverAccountId: 1,
-    amount: 50000,
-  })
+  // const newExternalTransfer = await axios.post('users/transfers', {
+  //   userId: elisa.data.id,
+  //   senderAccountId: null,
+  //   receiverAccountId: 1,
+  //   amount: 50000,
+  // })
 
   //create new Trade
-  const newTrade1 = await axios.post('/trades', {
-    currencyPair: 'EURUSD',
-    buySellFlag: 'Buy',
-    executionRate: '1.2',
-    amount: 50,
-    valueDate: '01.01.2023',
-    buyAccountId: 2,
-    sellAccountId: 1,
-    userId: elisa.data.id,
-  })
-  console.log(newTrade1.data)
+  // const newTrade1 = await axios.post('/trades', {
+  //   currencyPair: 'EURUSD',
+  //   buySellFlag: 'Buy',
+  //   executionRate: '1.2',
+  //   amount: 50,
+  //   valueDate: '01.01.2023',
+  //   buyAccountId: 2,
+  //   sellAccountId: 1,
+  //   userId: elisa.data.id,
+  // })
+  // console.log(newTrade1.data)
 
   // const newTrade2 = await axios.post('/trades', {
   //   currencyPair: 'EURUSD',
@@ -86,14 +86,14 @@ async function main() {
   //   userId: elisa.data.id,
   // })
   //tradeList
-  const callTrades = await axios.get('/trades')
+  //const callTrades = await axios.get('/trades')
 
   //userList
   const callUsers = await axios.get('/users')
   console.log(callUsers.data)
   //accountList
-  const callAccounts = await axios.get('/users')
-  console.log(callAccounts.data)
+  // const callAccounts = await axios.get('/users')
+  // console.log(callAccounts.data)
 }
 
 main()
