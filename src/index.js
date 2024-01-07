@@ -1,5 +1,5 @@
 const axios = require('axios')
-
+const User = require('./models/user.js')
 axios.defaults.baseURL = 'http://localhost:3000'
 
 async function main() {
@@ -30,21 +30,22 @@ async function main() {
   // //update user
   // const updatedElisa = await axios.put('/users/1', { surname: 'Lam Edith', email: 'elisaupdated@gmail.com' })
 
-  // //create new Account
-  // const newAccount1 = await axios.post('/accounts', {
-  //   currency: 'EUR',
-  //   owner: elisa.data.id,
-  // })
+  //create new Account
+  const newAccount1 = await axios.post('/accounts', {
+    currency: 'EUR',
+    owner: '659ad789222403faf4191ae5',
+  })
 
-  // console.log(newAccount1.data.balance)
-  // const newAccount2 = await axios.post('/accounts', {
-  //   currency: 'JPY',
-  //   owner: elisa.data.id,
-  // })
-  // const newAccount3 = await axios.post('/accounts', {
-  //   currency: 'CAD',
-  //   owner: elisa.data.id,
-  // })
+  const newAccount2 = await axios.post('/accounts', {
+    currency: 'JPY',
+    owner: '659ad789222403faf4191ae5',
+  })
+
+  const newAccount3 = await axios.post('/accounts', {
+    currency: 'CAD',
+    owner: '659ad789222403faf4191ae5',
+  })
+
   // //update Account
   // const updatedAccount = await axios.put('/accounts/3', {
   //   newValues: {
@@ -55,14 +56,14 @@ async function main() {
 
   //create external Transfer
 
-  // const newExternalTransfer = await axios.post('users/transfers', {
-  //   userId: elisa.data.id,
-  //   senderAccountId: null,
-  //   receiverAccountId: 1,
-  //   amount: 50000,
-  // })
+  const newExternalTransfer = await axios.post('users/transfers', {
+    userId: '659ad789222403faf4191ae5',
+    senderAccountId: null,
+    receiverAccountId: '659ae09ab3b9e6b038e9bd08',
+    amount: 50000,
+  })
 
-  //create new Trade
+  // //create new Trade
   // const newTrade1 = await axios.post('/trades', {
   //   currencyPair: 'EURUSD',
   //   buySellFlag: 'Buy',
@@ -73,7 +74,7 @@ async function main() {
   //   sellAccountId: 1,
   //   userId: elisa.data.id,
   // })
-  // console.log(newTrade1.data)
+  //console.log(newTrade1.data)
 
   // const newTrade2 = await axios.post('/trades', {
   //   currencyPair: 'EURUSD',
@@ -97,43 +98,3 @@ async function main() {
 }
 
 main()
-
-//const max = new User('Max', 'Michael', 'max@gmail.com', 1235555)
-//const elisa = new User('Elisa', 'Lam', 'elisa@gmail.com', 144555)
-
-// max.currencyPairs = ['USDTRY', 'EURUSD']
-// max.executeTrade(1000)
-// elisa.executeTrade(1500)
-// elisa.executeTrade(2000)
-// const maxAccount = max.openAccount('USD')
-// //console.log(maxAccount)
-// max.openAccount('EUR', 1)
-// console.log(max.accounts)
-//elisa.externalBalanceTransfer(10000, { from: null, to: 1 })
-//elisa.externalBalanceTransfer(10000, { from: null, to: 2 })
-// max.externalBalanceTransfer(50000, { from: null, to: 2 })
-// max.internalBalanceTransfer(1000, { from: 1, to: 2 })
-
-// max.accounts.forEach(account => {
-//   console.log(account, account.balance)
-// })
-// elisa.openAccount('CHF')
-// elisa.openAccount('CHF')
-// elisa.deleteAccount('CHF', 4)
-// //console.log(elisa.accounts)
-// //elisa.openAccount('CHF', 4)//?
-// console.log(max)
-
-// console.log(`------`)
-// //console.log(max)
-// //max.updateSettings('1.1.1999', ['USDTRY', 'EURUSD', 'CADTRY'], 2000, null, null)
-// //console.log(max)
-// /*trade Class and executeTrade Testing
-// max.executeTrade(null, 'EURUSD', 'buy', 1.2, 1000, '2023-12-31', 1, 2, '2022-01-01')
-// const tradelistOfMax = max.trades
-// console.log(tradelistOfMax)*/
-// //open account test
-// max.openAccount('JPY')
-// console.log(max)
-// max.deleteAccount(2)
-// console.log(max)

@@ -1,21 +1,22 @@
 const express = require('express')
-const User = require('../user')
-const Trade = require('../trade')
 const router = express.Router()
-const Account = require('../account')
+
+const User = require('../models/user')
+const Trade = require('../models/trade')
+const Account = require('../models/account')
 
 /* GET trades listing. */
-router.get('/', function (req, res, next) {
-  res.send(Trade.list)
+router.get('/', async function (req, res, next) {
+  res.send(await Trade.find())
 })
 //post new Trade
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
   const { currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId, userId } = req.body
-  const user = User.list.find(user => user.id === userId)
-  const sellAccount = Account.list.find(account => account.accId === sellAccountId)
-  const buyAccount = Account.list.find(account => account.accId === buyAccountId)
-  console.log('buraya gelebiyorum')
-  const newTrade = user.executeTrade(
+  const user = User.findById(req.body.userId)
+  const sellAccount = Account.findById(req.body.sellAccountId)
+  const buyAccount = Account.list.findById(req.body.buyAccountId)
+
+  const newTrade = await user.executeTrade(
     currencyPair,
     buySellFlag,
     executionRate,

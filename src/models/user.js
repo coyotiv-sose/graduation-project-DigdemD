@@ -1,40 +1,34 @@
-const Account = require('./account.js')
-const Trade = require('./trade.js')
 const mongoose = require('mongoose')
 //const { Parser } = require('json2csv')
 const fs = require('fs') //filesystem module in node.js
+
+const Account = require('./account.js')
+const Trade = require('./trade.js')
 
 const userSchema = new mongoose.Schema({
   name: String,
   surname: String,
   email: String,
-  mobile: Number,
+  mobile: String,
   accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
   trades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trade' }],
+  RiskGroup: { type: String, default: 'Starter' },
+  dateOfBirth: String,
+  currencyPairs: [String],
+  minTradeLimit: { type: Number, default: 1000 },
+  maxTradeLimit: { type: Number, default: 1000000 },
+  clickAndTrade: Boolean,
+  countOfTrade: { type: Number, default: 0 },
+  tradeVolume: { type: Number, default: 0 },
+  //createdAt: { type: Date, default: Date.now },
 })
 class User {
-  static idCounter = 1
-  accounts = []
-  trades = []
-  constructor(name, surname, email, mobile) {
-    this.name = name
-    this.surname = surname
-    this.email = email
-    this.mobile = mobile
-  }
-  RiskGroup = 'starter'
-  dateOfBirth = ''
-  currencyPairs = []
-  minTradeLimit = 1000 //USD
-  maxTradeLimit = 1000000 //USD
-  clickAndTrade = true
-  countOfTrade = 0
-  tradeVolume = 0 //USD
-  id = User.idCounter++
+  async openAccount(currency) {
+    const newAccount = await Account.create({ currency: currency, owner: this.id })
 
-  openAccount(currency) {
-    const newAccount = Account.create({ currency: currency, owner: this.id })
     this.accounts.push(newAccount)
+    await newAccount.save()
+    await this.save()
     return newAccount
   }
   deleteAccount(accId) {
@@ -83,19 +77,19 @@ class User {
       }
     }
   }
-  externalBalanceTransfer(amount, { from, to }) {
+  async externalBalanceTransfer(amount, { from, to }) {
     const senderAccountId = from
     const receiverAccountId = to
     if (senderAccountId === null) {
       for (let i = 0; i < this.accounts.length; i++) {
         if (this.accounts[i].accId === receiverAccountId) {
-          this.accounts[i].deposit(amount)
+          await this.accounts[i].deposit(amount)
         }
       }
     } else if (receiverAccountId === null) {
       for (let j = 0; j < this.accounts.length; j++) {
-        if (this.accounts[j] === senderAccountId) {
-          this.accounts[j].withdraw(amount)
+        if (this.accounts[j].accId === senderAccountId) {
+          await this.accounts[j].withdraw(amount)
         }
       }
     }
@@ -143,18 +137,8 @@ class User {
       console.log('Trade history has been saved!')
     })
   }
-
-  static create({ name, surname, mobile, email }) {
-    const newUser = new User(name, surname, email, mobile)
-
-    User.list.push(newUser)
-
-    return newUser
-  }
-
-  static list = []
 }
 
 //module.exports = User
-
+userSchema.loadClass(User)
 module.exports = mongoose.model('User', userSchema)

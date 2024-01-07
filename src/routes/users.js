@@ -1,36 +1,37 @@
 var express = require('express')
-const User = require('../user')
 var router = express.Router()
 
+const User = require('../models/user')
+
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send(User.list)
+router.get('/', async function (req, res, next) {
+  res.send(await User.find())
 })
 //get single user(dynamic)
-router.get('/:userName', function (req, res, next) {
+router.get('/:userName', async function (req, res, next) {
   const { userName } = req.params
-  const user = User.list.find(user => user.name === userName)
+  const user = User.findOne({ name: req.params.userName })
 
-  res.send(user)
+  res.send(await user)
 })
 //get single user/account(dynamic)
-router.get('/:userName/accounts', function (req, res, next) {
+router.get('/:userName/accounts', async function (req, res, next) {
   const { userName, accounts } = req.params
-  const user = User.list.find(user => user.name === userName)
+  const user = await User.findOne({ name: req.params.userName })
   //res.send(user.accounts)
   res.send(user.accounts.map(account => ({ ...account, balance: account.balance })))
 })
 //get single user/trade(dynamic)
-router.get('/:userName/trades', function (req, res, next) {
+router.get('/:userName/trades', async function (req, res, next) {
   const { userName } = req.params
-  const user = User.list.find(user => user.name === userName)
+  const user = User.findOne({ name: req.params.userName })
 
-  res.send(user.trades)
+  res.send(await user.trades)
 })
 
 //post new user
-router.post('/', function (req, res, next) {
-  const newUser = User.create({
+router.post('/', async function (req, res, next) {
+  const newUser = await User.create({
     name: req.body.name,
     surname: req.body.surname,
     mobile: req.body.mobile,
@@ -40,11 +41,11 @@ router.post('/', function (req, res, next) {
   res.status(200).send(newUser)
 })
 //post externalTransfer
-router.post('/transfers', function (req, res, next) {
+router.post('/transfers', async function (req, res, next) {
   const { userId, senderAccountId, receiverAccountId, amount } = req.body
 
-  const user = User.list.find(user => user.id === userId)
-  let transfer = user.externalBalanceTransfer(amount, {
+  const user = await User.findById(userId)
+  let transfer = await user.externalBalanceTransfer(amount, {
     from: senderAccountId,
     to: receiverAccountId,
   })
@@ -52,19 +53,19 @@ router.post('/transfers', function (req, res, next) {
   res.status(200).send(transfer)
 })
 
-//delete user
-router.delete('/:userId', function (req, res, next) {
-  const { userId } = req.params
-  const userIndex = User.list.findIndex(user => user.id == userId)
-  User.list.splice(userIndex, 1)
+// //delete user (soru)
+// router.delete('/:userId', async function (req, res, next) {
+//   const { userId } = req.params
+//   const userIndex = User.findIndex(user => user.id == userId)
+//   User.list.splice(userIndex, 1)
 
-  res.sendStatus(200)
-})
+//   res.sendStatus(200)
+// })
 //update user
-router.put('/:userId', function (req, res, next) {
+router.put('/:userId', async function (req, res, next) {
   const { userId } = req.params
   const { surname, email } = req.body
-  const user = User.list.find(user => user.id == userId)
+  const user = await User.findById(req.params.userId)
   user.surname = surname
   user.email = email
 
