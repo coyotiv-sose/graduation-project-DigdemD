@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 const User = require('../models/user')
+const Account = require('../models/account')
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
@@ -43,11 +44,15 @@ router.post('/', async function (req, res, next) {
 //post externalTransfer
 router.post('/transfers', async function (req, res, next) {
   const { userId, senderAccountId, receiverAccountId, amount } = req.body
+  console.log('amount: ', typeof amount)
 
   const user = await User.findById(userId)
+  const senderAccount = await Account.findById(senderAccountId)
+  const receiverAccount = await Account.findById(receiverAccountId)
+
   let transfer = await user.externalBalanceTransfer(amount, {
-    from: senderAccountId,
-    to: receiverAccountId,
+    from: senderAccount,
+    to: receiverAccount,
   })
 
   res.status(200).send(transfer)

@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users')
 const tradesRouter = require('./routes/trades')
 const accountsRouter = require('./routes/accounts')
 const app = express()
+const autopopulate = require('mongoose-autopopulate')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

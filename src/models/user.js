@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
 //const { Parser } = require('json2csv')
 const fs = require('fs') //filesystem module in node.js
 
@@ -10,7 +11,7 @@ const userSchema = new mongoose.Schema({
   surname: String,
   email: String,
   mobile: String,
-  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
+  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account', autopopulate: true }],
   trades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trade' }],
   RiskGroup: { type: String, default: 'Starter' },
   dateOfBirth: String,
@@ -22,6 +23,7 @@ const userSchema = new mongoose.Schema({
   tradeVolume: { type: Number, default: 0 },
   //createdAt: { type: Date, default: Date.now },
 })
+
 class User {
   async openAccount(currency) {
     const newAccount = await Account.create({ currency: currency, owner: this.id })
@@ -78,26 +80,22 @@ class User {
     }
   }
   async externalBalanceTransfer(amount, { from, to }) {
-    const senderAccountId = from
-    const receiverAccountId = to
-    if (senderAccountId === null) {
-      for (let i = 0; i < this.accounts.length; i++) {
-        if (this.accounts[i].accId === receiverAccountId) {
-          await this.accounts[i].deposit(amount)
-        }
-      }
-    } else if (receiverAccountId === null) {
-      for (let j = 0; j < this.accounts.length; j++) {
-        if (this.accounts[j].accId === senderAccountId) {
-          await this.accounts[j].withdraw(amount)
-        }
-      }
+    const senderAccount = from
+    const receiverAccount = to
+    console.log(`receiver account ${receiverAccount}`)
+
+    if (!senderAccount) {
+      //const receiverAccount = this.accounts.find(account => account._id === receiverAccountId)
+      return await receiverAccount.deposit(amount)
+    } else if (!receiverAccount) {
+      //  const senderAccount = this.accounts.find(account => account._id === senderAccountId)
+      return await senderAccount.deposit(amount)
     }
-  } //need to talk about logic
+  }
+  //need to talk about logic refactor edilecek
   updateSettings(dateOfBirth, currencyPairs, minTradeLimit, maxTradeLimit, clickAndTrade) {
     if (dateOfBirth !== null) {
       this.dateOfBirth = dateOfBirth
-      console.log('dateOfBirth after update:', this.dateOfBirth)
     }
     if (currencyPairs !== null) {
       this.currencyPairs = currencyPairs
@@ -141,4 +139,5 @@ class User {
 
 //module.exports = User
 userSchema.loadClass(User)
+userSchema.plugin(autopopulate)
 module.exports = mongoose.model('User', userSchema)

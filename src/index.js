@@ -33,17 +33,17 @@ async function main() {
   //create new Account
   const newAccount1 = await axios.post('/accounts', {
     currency: 'EUR',
-    owner: '659ad789222403faf4191ae5',
+    owner: elisa.data._id,
   })
 
   const newAccount2 = await axios.post('/accounts', {
     currency: 'JPY',
-    owner: '659ad789222403faf4191ae5',
+    owner: elisa.data._id,
   })
 
   const newAccount3 = await axios.post('/accounts', {
     currency: 'CAD',
-    owner: '659ad789222403faf4191ae5',
+    owner: elisa.data._id,
   })
 
   // //update Account
@@ -57,9 +57,9 @@ async function main() {
   //create external Transfer
 
   const newExternalTransfer = await axios.post('users/transfers', {
-    userId: '659ad789222403faf4191ae5',
+    userId: elisa.data._id,
     senderAccountId: null,
-    receiverAccountId: '659ae09ab3b9e6b038e9bd08',
+    receiverAccountId: newAccount1.data._id,
     amount: 50000,
   })
 
@@ -91,7 +91,7 @@ async function main() {
 
   //userList
   const callUsers = await axios.get('/users')
-  console.log(callUsers.data)
+
   //accountList
   // const callAccounts = await axios.get('/users')
   // console.log(callAccounts.data)
