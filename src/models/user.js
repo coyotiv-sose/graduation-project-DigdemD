@@ -44,27 +44,32 @@ class User {
   }
   async executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
     console.log(`sell account ${sellAccount}`)
+    if (sellAccount.currency === buyAccount.currency) {
+      if (sellAccount.balance >= amount) {
+        const newTrade = await Trade.create({
+          currencyPair,
+          buySellFlag,
+          executionRate,
+          amount,
+          valueDate,
+          buyAccount,
+          sellAccount,
+        })
+        this.countOfTrade += 1
+        this.tradeVolume += amount
+        this.trades.push(newTrade)
+        await buyAccount.deposit(amount)
+        await sellAccount.withdraw(amount)
+        await this.save()
 
-    if (sellAccount.balance >= amount) {
-      const newTrade = await Trade.create({
-        currencyPair,
-        buySellFlag,
-        executionRate,
-        amount,
-        valueDate,
-        buyAccount,
-        sellAccount,
-      })
-      this.countOfTrade += 1
-      this.tradeVolume += amount
-      this.trades.push(newTrade)
-      await buyAccount.deposit(amount)
-      await sellAccount.withdraw(amount)
-      await this.save()
-
-      return newTrade
+        return newTrade
+      } else {
+        throw new Error(`Balance is not available`)
+      }
     } else {
-      throw new Error(`Balance is not available`)
+      throw new Error(
+        'Currency mismatch between Buy Account and Sell Account detected. Please ensure that both accounts have the same currency for successful transactions'
+      )
     }
   }
 

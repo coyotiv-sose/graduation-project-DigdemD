@@ -39,7 +39,7 @@ async function main() {
   })
 
   const newAccount2 = await axios.post('/accounts', {
-    currency: 'JPY',
+    currency: 'EUR',
     owner: elisa.data._id,
   })
 
