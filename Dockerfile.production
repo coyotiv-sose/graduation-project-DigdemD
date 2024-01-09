@@ -1,5 +1,6 @@
 FROM node:lts-alpine3.18
 
+WORKDIR /app
 
 ADD package.json package-lock.json ./
 
