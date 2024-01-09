@@ -12,9 +12,9 @@ router.get('/', async function (req, res, next) {
 //post new Trade
 router.post('/', async function (req, res, next) {
   const { currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId, userId } = req.body
-  const user = User.findById(req.body.userId)
-  const sellAccount = Account.findById(req.body.sellAccountId)
-  const buyAccount = Account.list.findById(req.body.buyAccountId)
+  const user = await User.findById(req.body.userId)
+  const sellAccount = await Account.findById(sellAccountId)
+  const buyAccount = await Account.findById(buyAccountId)
 
   const newTrade = await user.executeTrade(
     currencyPair,

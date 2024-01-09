@@ -40,11 +40,11 @@ class User {
       }
     }
   }
-  executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
+  async executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
     console.log(`sell account ${sellAccount}`)
 
     if (sellAccount.balance >= amount) {
-      const newTrade = Trade.create({
+      const newTrade = await Trade.create({
         currencyPair,
         buySellFlag,
         executionRate,
@@ -56,6 +56,9 @@ class User {
       this.countOfTrade += 1
       this.tradeVolume += amount
       this.trades.push(newTrade)
+      await buyAccount.deposit(amount)
+      await sellAccount.withdraw(amount)
+      await this.save()
 
       return newTrade
     } else {

@@ -11,3 +11,11 @@ services:
       - MONGODB_CONNECTION_STRING=mongodb+srv://digdem:jagjyb-cisnAh-2cirmo@cluster0.7qr0oty.mongodb.net/GybingFxTradingTest?retryWrites=true&w=majority
     volumes:
       - ./src:/src
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=digdem
+    #   - MONGO_INITDB_ROOT_PASSWORD=<SUPERSECRET>
