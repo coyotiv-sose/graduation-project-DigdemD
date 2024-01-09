@@ -12,14 +12,7 @@ const accountSchema = new mongoose.Schema(
     status: { type: String, default: 'Active' },
     name: String,
   },
-  {
-    toObject: {
-      virtuals: true,
-    },
-    toJSON: {
-      virtuals: true,
-    },
-  }
+  { timestamps: true }
 )
 
 class Account {

@@ -6,23 +6,25 @@ const fs = require('fs') //filesystem module in node.js
 const Account = require('./account.js')
 const Trade = require('./trade.js')
 
-const userSchema = new mongoose.Schema({
-  name: String,
-  surname: String,
-  email: String,
-  mobile: String,
-  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account', autopopulate: true }],
-  trades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trade' }],
-  RiskGroup: { type: String, default: 'Starter' },
-  dateOfBirth: String,
-  currencyPairs: [String],
-  minTradeLimit: { type: Number, default: 1000 },
-  maxTradeLimit: { type: Number, default: 1000000 },
-  clickAndTrade: Boolean,
-  countOfTrade: { type: Number, default: 0 },
-  tradeVolume: { type: Number, default: 0 },
-  //createdAt: { type: Date, default: Date.now },
-})
+const userSchema = new mongoose.Schema(
+  {
+    name: String,
+    surname: String,
+    email: String,
+    mobile: String,
+    accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account', autopopulate: true }],
+    trades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trade' }],
+    RiskGroup: { type: String, default: 'Starter' },
+    dateOfBirth: String,
+    currencyPairs: [String],
+    minTradeLimit: { type: Number, default: 1000 },
+    maxTradeLimit: { type: Number, default: 1000000 },
+    clickAndTrade: Boolean,
+    countOfTrade: { type: Number, default: 0 },
+    tradeVolume: { type: Number, default: 0 },
+  },
+  { timestamps: true }
+)
 
 class User {
   async openAccount(currency) {
