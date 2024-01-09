@@ -1,0 +1,11 @@
+# build -t cicd102 . - done
+#$ docker run -it -p 3000:3000 -e MONGODB_CONNECTION_STRING='mongodb+srv://digdem:jagjyb-cisnAh-2cirmo@cluster0.7qr0oty.mongodb.net/GybingFxTradingTest?retryWrites=true&w=majority' -v "$(pwd)"/src:/src cicd102
+
+services:
+  backend:
+    image: cicd102
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - MONGODB_CONNECTION_STRING= mongodb+srv://digdem:jagjyb-cisnAh-2cirmo@cluster0.7qr0oty.mongodb.net/GybingFxTradingTest?retryWrites=true&w=majority
