@@ -42,10 +42,26 @@ class User {
       }
     }
   }
-  async executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount, tradeTime) {
-    console.log(`sell account ${sellAccount}`)
-    if (sellAccount.currency === buyAccount.currency) {
-      if (sellAccount.balance >= amount) {
+  async executeTrade(
+    currencyPair,
+    buySellFlag,
+    executionRate,
+    amount,
+    valueDate,
+    buyAccountId,
+    sellAccountId,
+    tradeTime
+  ) {
+    const buyCurrency = currencyPair.slice(0, 3)
+    const sellCurrency = currencyPair.slice(3, 6)
+    const buyAccount = await Account.findById(buyAccountId)
+    const sellAccount = await Account.findById(sellAccountId)
+
+    let buyAmount = buySellFlag === 'Buy' ? amount : amount * executionRate
+    let sellAmount = buySellFlag === 'Buy' ? amount * executionRate : amount
+
+    if (buyAccount.currency === buyCurrency && sellAccount.currency === sellCurrency) {
+      if (sellAccount.balance >= sellAmount) {
         const newTrade = await Trade.create({
           currencyPair,
           buySellFlag,
@@ -58,8 +74,8 @@ class User {
         this.countOfTrade += 1
         this.tradeVolume += amount
         this.trades.push(newTrade)
-        await buyAccount.deposit(amount)
-        await sellAccount.withdraw(amount)
+        await buyAccount.deposit(buyAmount)
+        await sellAccount.withdraw(sellAmount)
         await this.save()
 
         return newTrade
@@ -68,7 +84,7 @@ class User {
       }
     } else {
       throw new Error(
-        'Currency mismatch between Buy Account and Sell Account detected. Please ensure that both accounts have the same currency for successful transactions'
+        'Currency mismatch between buy and sell accounts. Ensure that the selected accounts match the currency pair'
       )
     }
   }
