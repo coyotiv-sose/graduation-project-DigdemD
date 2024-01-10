@@ -17,11 +17,18 @@ router.get('/:userName', async function (req, res, next) {
 })
 //get single user/account(dynamic)
 router.get('/:userName/accounts', async function (req, res, next) {
-  const { userName, accounts } = req.params
-  const user = await User.findOne({ name: req.params.userName })
-  //res.send(user.accounts)
-  res.send(user.accounts.map(account => ({ ...account, balance: account.balance })))
+  if (req.query.view == 'json') {
+    //http://127.0.0.1:3000/users/Elisa/accounts?view=json
+    const { userName, accounts } = req.params
+    const user = await User.findOne({ name: req.params.userName })
+    //res.send(user.accounts)
+
+    res.send(user.accounts.map(account => ({ ...account, balance: account.balance })))
+  }
+
+  res.render('user-accounts', { user: await User.findOne({ name: req.params.userName }) })
 })
+
 //get single user/trade(dynamic)
 router.get('/:userName/trades', async function (req, res, next) {
   const { userName } = req.params

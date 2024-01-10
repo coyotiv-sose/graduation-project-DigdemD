@@ -8,13 +8,15 @@ services:
     ports:
       - 3000:3000
     environment:
-      - MONGODB_CONNECTION_STRING=mongodb+srv://digdem:jagjyb-cisnAh-2cirmo@cluster0.7qr0oty.mongodb.net/GybingFxTradingTest?retryWrites=true&w=majority
+      - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/floater
     volumes:
-      - ./src:/src
+      - ./src:/app/src
   mongodb:
     image: mongo
     ports:
       - 27017:27017
+    volumes:
+      - ./data:/data/db
 
     # environment:
     #   - MONGO_INITDB_ROOT_USERNAME=digdem

@@ -60,33 +60,33 @@ class User {
     let buyAmount = buySellFlag === 'Buy' ? amount : amount * executionRate
     let sellAmount = buySellFlag === 'Buy' ? amount * executionRate : amount
 
-    if (buyAccount.currency === buyCurrency && sellAccount.currency === sellCurrency) {
-      if (sellAccount.balance >= sellAmount) {
-        const newTrade = await Trade.create({
-          currencyPair,
-          buySellFlag,
-          executionRate,
-          amount,
-          valueDate,
-          buyAccount,
-          sellAccount,
-        })
-        this.countOfTrade += 1
-        this.tradeVolume += amount
-        this.trades.push(newTrade)
-        await buyAccount.deposit(buyAmount)
-        await sellAccount.withdraw(sellAmount)
-        await this.save()
-
-        return newTrade
-      } else {
-        throw new Error(`Balance is not available`)
-      }
-    } else {
+    if (buyAccount.currency !== buyCurrency || sellAccount.currency !== sellCurrency) {
       throw new Error(
         'Currency mismatch between buy and sell accounts. Ensure that the selected accounts match the currency pair'
       )
     }
+
+    if (sellAccount.balance < sellAmount) {
+      throw new Error(`Balance is not available`)
+    }
+
+    const newTrade = await Trade.create({
+      currencyPair,
+      buySellFlag,
+      executionRate,
+      amount,
+      valueDate,
+      buyAccount,
+      sellAccount,
+    })
+    this.countOfTrade += 1
+    this.tradeVolume += amount
+    this.trades.push(newTrade)
+    await buyAccount.deposit(buyAmount)
+    await sellAccount.withdraw(sellAmount)
+    await this.save()
+
+    return newTrade
   }
 
   internalBalanceTransfer(amount, { from, to }) {

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1 Account List
+  p List of Accounts
+
+  table
+    thead
+      tr
+        th Account ID
+        th Currency
+        th Status
+        th Balance
+        th createdAt
+    each account in user.accounts
+      tr
+        td #{account._id}
+        td #{account.currency}
+        td #{account.status}
+        td #{account.balance}
+        td #{account.createdAt}

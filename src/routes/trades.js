@@ -15,7 +15,7 @@ router.post('/', async function (req, res, next) {
   const user = await User.findById(req.body.userId)
   const sellAccount = await Account.findById(sellAccountId)
   const buyAccount = await Account.findById(buyAccountId)
-
+  console.log(user)
   const newTrade = await user.executeTrade(
     currencyPair,
     buySellFlag,

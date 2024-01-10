@@ -7,7 +7,7 @@ const Trade = require('../models/trade')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Gybing Fx Trading' })
+  res.render('index', { title: 'Gybing Fx Trading', user: 'Elisa' })
 })
 
 router.get('/delete', async function (req, res, next) {
