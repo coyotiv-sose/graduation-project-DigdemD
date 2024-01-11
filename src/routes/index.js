@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Gybing Fx Trading', user: 'Elisa' })
 })
 
-router.get('/delete', async function (req, res, next) {
+router.delete('/db', async function (req, res, next) {
   await User.deleteMany({})
   await Account.deleteMany({})
   await Trade.deleteMany({})

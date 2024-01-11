@@ -58,15 +58,13 @@ async function main() {
 
   //create external Transfer
 
-  const newExternalTransfer = await axios.post('users/transfers', {
-    userId: elisa.data._id,
+  const newExternalTransfer = await axios.post(`/users/${elisa.data._id}/transfers`, {
     senderAccountId: null,
     receiverAccountId: newAccount1.data._id,
     amount: 50000,
   })
 
-  const newExternalTransfer2 = await axios.post('users/transfers', {
-    userId: elisa.data._id,
+  const newExternalTransfer2 = await axios.post(`/users/${elisa.data._id}/transfers`, {
     senderAccountId: null,
     receiverAccountId: newAccount2.data._id,
     amount: 50000,

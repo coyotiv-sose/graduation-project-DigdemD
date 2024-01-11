@@ -49,8 +49,9 @@ router.post('/', async function (req, res, next) {
   res.status(200).send(newUser)
 })
 //post externalTransfer
-router.post('/transfers', async function (req, res, next) {
-  const { userId, senderAccountId, receiverAccountId, amount } = req.body
+router.post(`/:userId/transfers`, async function (req, res, next) {
+  const { userId } = req.params
+  const { senderAccountId, receiverAccountId, amount } = req.body
   console.log('amount: ', typeof amount)
 
   const user = await User.findById(userId)
