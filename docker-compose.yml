@@ -3,14 +3,16 @@
 
 services:
   backend:
-    image: cicd102
-    build: .
+    image: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
       - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/floater
     volumes:
-      - ./src:/app/src
+      - ./backend/src:/src
   mongodb:
     image: mongo
     ports:
