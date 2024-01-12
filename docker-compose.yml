@@ -13,6 +13,18 @@ services:
       - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/floater
     volumes:
       - ./backend/src:/src
+
+  frontend:
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+
   mongodb:
     image: mongo
     ports:
