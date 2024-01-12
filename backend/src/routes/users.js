@@ -19,8 +19,10 @@ router.get('/:userName', async function (req, res, next) {
 router.get('/:userName/accounts', async function (req, res, next) {
   if (req.query.view == 'json') {
     //http://127.0.0.1:3000/users/Elisa/accounts?view=json
-    const { userName, accounts } = req.params
-    const user = await User.findOne({ name: req.params.userName })
+
+    const { owner } = req.body
+
+    const user = await User.findOne({ _id: owner })
     //res.send(user.accounts)
 
     res.send(user.accounts.map(account => ({ ...account, balance: account.balance })))
@@ -37,7 +39,7 @@ router.get('/:userName/trades', async function (req, res, next) {
   res.send(await user.trades)
 })
 
-//post new user
+//post new user --ok
 router.post('/', async function (req, res, next) {
   const newUser = await User.create({
     name: req.body.name,
@@ -48,7 +50,7 @@ router.post('/', async function (req, res, next) {
 
   res.status(200).send(newUser)
 })
-//post externalTransfer
+//post externalTransfer --ok
 router.post(`/:userId/transfers`, async function (req, res, next) {
   const { userId } = req.params
   const { senderAccountId, receiverAccountId, amount } = req.body
@@ -66,19 +68,19 @@ router.post(`/:userId/transfers`, async function (req, res, next) {
   res.status(200).send(transfer)
 })
 
-// //delete user (soru)
-// router.delete('/:userId', async function (req, res, next) {
-//   const { userId } = req.params
-//   const userIndex = User.findIndex(user => user.id == userId)
-//   User.list.splice(userIndex, 1)
+//delete user --ok
+router.delete('/:userId', async function (req, res, next) {
+  const { userId } = req.params
+  const userIndex = User.findIndex(user => _id === userId)
+  User.list.splice(userIndex, 1)
 
-//   res.sendStatus(200)
-// })
-//update user
+  res.sendStatus(200)
+})
+//update user --ok
 router.put('/:userId', async function (req, res, next) {
   const { userId } = req.params
   const { surname, email } = req.body
-  const user = await User.findById(req.params.userId)
+  const user = await User.findById(userId)
   user.surname = surname
   user.email = email
 

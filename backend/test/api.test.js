@@ -13,7 +13,7 @@ describe('Test the api', () => {
     })
     const sahika = await request(app).post('/users').send({
       name: 'Sahika',
-      surname: 'Gazoz',
+      surname: 'Ercumen',
     })
     const expectedOutput = [mete.body, sahika.body]
 
@@ -23,8 +23,17 @@ describe('Test the api', () => {
 
     expect(response.body).toMatchObject(expectedOutput)
   })
-
+  //user create
   test('Test of user creation', async () => {
+    const response = await request(app).post('/users').send({
+      name: 'Mete',
+      surname: 'Gazoz',
+    })
+
+    expect(response.body.name).toBe('Mete')
+  })
+  //
+  test('Test of account creation', async () => {
     const response = await request(app).post('/users').send({
       name: 'Mete',
       surname: 'Gazoz',

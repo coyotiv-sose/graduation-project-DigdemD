@@ -5,6 +5,7 @@ axios.defaults.baseURL = 'http://localhost:3000'
 async function main() {
   await axios.get('/delete')
   console.log('all records are deleted')
+
   //create new User
   const elisa = await axios.post('/users', {
     name: 'Elisa',
@@ -27,34 +28,42 @@ async function main() {
     email: 'msc@gmail.com',
   })
 
+  const marie = await axios.post('/users', {
+    name: 'Marie',
+    surname: 'Curie',
+    mobile: '6364893088',
+    email: 'chemi@gmail.com',
+  })
+
   //delete user
-  // await axios.delete('/users/2')
-  // //update user
-  // const updatedElisa = await axios.put('/users/1', { surname: 'Lam Edith', email: 'elisaupdated@gmail.com' })
+  await axios.delete(`/users/${marie.data._id}`)
+
+  //update user
+  const updatedElisa = await axios.put(`/users/${elisa.data._id} `, {
+    surname: 'Lam Edith',
+    email: 'elisaupdated@gmail.com',
+  })
 
   //create new Account
-  const newAccount1 = await axios.post('/accounts', {
+  const newAccount1 = await axios.post(`/accounts/${elisa.data._id}`, {
     currency: 'USD',
-    owner: elisa.data._id,
   })
 
-  const newAccount2 = await axios.post('/accounts', {
+  const newAccount2 = await axios.post(`/accounts/${elisa.data._id}`, {
     currency: 'EUR',
-    owner: elisa.data._id,
   })
 
-  const newAccount3 = await axios.post('/accounts', {
+  const newAccount3 = await axios.post(`/accounts/${elisa.data._id}`, {
     currency: 'CAD',
-    owner: elisa.data._id,
   })
 
-  // //update Account
-  // const updatedAccount = await axios.put('/accounts/3', {
-  //   newValues: {
-  //     status: 'Passive',
-  //     name: 'Hedge Account',
-  //   },
-  // })
+  //update Account
+  const updatedAccount = await axios.put(`/accounts/${newAccount3.data._id}`, {
+    newValues: {
+      status: 'Passive',
+      name: 'Hedge Account',
+    },
+  })
 
   //create external Transfer
 
