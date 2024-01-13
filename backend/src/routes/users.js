@@ -71,8 +71,7 @@ router.post(`/:userId/transfers`, async function (req, res, next) {
 //delete user --ok
 router.delete('/:userId', async function (req, res, next) {
   const { userId } = req.params
-  const userIndex = User.findIndex(user => _id === userId)
-  User.list.splice(userIndex, 1)
+  await User.findByIdAndDelete(userId)
 
   res.sendStatus(200)
 })

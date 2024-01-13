@@ -3,7 +3,7 @@ const User = require('./models/user.js')
 axios.defaults.baseURL = 'http://localhost:3000'
 
 async function main() {
-  await axios.get('/delete')
+  await axios.delete('/db')
   console.log('all records are deleted')
 
   //create new User
@@ -45,15 +45,18 @@ async function main() {
   })
 
   //create new Account
-  const newAccount1 = await axios.post(`/accounts/${elisa.data._id}`, {
+  const newAccount1 = await axios.post(`/accounts`, {
+    ownerId: elisa.data._id,
     currency: 'USD',
   })
 
-  const newAccount2 = await axios.post(`/accounts/${elisa.data._id}`, {
+  const newAccount2 = await axios.post(`/accounts`, {
+    ownerId: elisa.data._id,
     currency: 'EUR',
   })
 
-  const newAccount3 = await axios.post(`/accounts/${elisa.data._id}`, {
+  const newAccount3 = await axios.post(`/accounts`, {
+    ownerId: elisa.data._id,
     currency: 'CAD',
   })
 

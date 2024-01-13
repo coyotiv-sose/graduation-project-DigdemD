@@ -10,13 +10,12 @@ router.get('/', async function (req, res, next) {
   res.send(await Account.find())
 })
 //post (create) new Account --ok
-router.post('/:userId', async function (req, res, next) {
-  const { userId } = req.params
-  const { currency } = req.body
-  //const user = User.list.find(user => user.id === req.body.owner)
-  const user = await User.findById(userId)
+router.post('/', async function (req, res, next) {
+  const { ownerId, currency } = req.body
 
-  const newAccount = await user.openAccount(currency, userId)
+  const user = await User.findById(ownerId)
+
+  const newAccount = await user.openAccount(currency)
 
   res.status(200).send(newAccount)
 })

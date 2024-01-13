@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
 
 const User = require('./user.js')
 
 const accountSchema = new mongoose.Schema(
   {
     currency: String,
-    owner: String,
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
     balance: { type: Number, default: 0, select: true },
     //#transactions: [],
     overdraft: { type: Number, default: 0, select: false },
@@ -45,4 +46,5 @@ class Account {
 
 //module.exports = Account
 accountSchema.loadClass(Account)
+accountSchema.plugin(autopopulate)
 module.exports = mongoose.model('Account', accountSchema)
