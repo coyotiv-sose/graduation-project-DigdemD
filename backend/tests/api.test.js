@@ -32,13 +32,28 @@ describe('Test the api', () => {
 
     expect(response.body.name).toBe('Mete')
   })
-  //
-  test('Test of account creation', async () => {
-    const response = await request(app).post('/users').send({
+  //account create
+  test('should create an account', async () => {
+    const mete = await request(app).post('/users').send({
       name: 'Mete',
       surname: 'Gazoz',
     })
+    const expectedOutput = { owner: mete.body, currency: 'EUR', balance: 0 }
 
-    expect(response.body.name).toBe('Mete')
+    const response = await request(app).post('/accounts').send({
+      ownerId: mete.body._id,
+      currency: 'EUR',
+    })
+
+    expect(response.body).toMatchObject(expectedOutput)
   })
+
+  // test('Test of update account', async () => {
+  //   const response = await request(app).put('/accounts').send({
+  //     status: 'Passive',
+  //     name: 'Hedge Account',
+  //   })
+
+  //   expect(response.body.name).toBe('Mete')
+  // })
 })
