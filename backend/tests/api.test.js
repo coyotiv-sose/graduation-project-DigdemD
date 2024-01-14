@@ -90,4 +90,35 @@ describe('Test the api', () => {
       amount: 500000,
     })
   })
+  test('should  create a new Trade', async () => {
+    const charles = await request(app).post('/users').send({
+      name: 'Charles',
+      surname: 'Darwin',
+    })
+    const accountOfCharlesNo1 = await request(app).post('/accounts').send({
+      ownerId: charles.body._id,
+      currency: 'EUR',
+    })
+    const accountOfCharlesNo2 = await request(app).post('/accounts').send({
+      ownerId: charles.body._id,
+      currency: 'USD',
+    })
+
+    const externalTransfer = await request(app).post(`/users/${charles.body._id}/transfers`).send({
+      senderAccountId: null,
+      receiverAccountId: accountOfCharlesNo1.body._id,
+      amount: 500000,
+    })
+    const expectedOutput = { currencyPair: 'EURUSD', amount: 3000 }
+    const response = await request(app).post(`/trades/${charles.body._id}`).send({
+      currencyPair: 'EURUSD',
+      buySellFlag: 'Sell',
+      executionRate: '2',
+      amount: 3000,
+      valueDate: '01.05.2024',
+      buyAccountId: accountOfCharlesNo2.body._id,
+      sellAccountId: accountOfCharlesNo1.body._id,
+    })
+    expect(response.body).toMatchObject(expectedOutput)
+  })
 })

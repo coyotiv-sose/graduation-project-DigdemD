@@ -95,7 +95,7 @@ async function main() {
   })
 
   //create new Trade (sell)
-  const newTrade2 = await axios.post('/trades', {
+  const newTrade2 = await axios.post('/trades/elisa.data._id', {
     currencyPair: 'EURUSD',
     buySellFlag: 'Sell',
     executionRate: '2',
@@ -103,7 +103,6 @@ async function main() {
     valueDate: '01.05.2023',
     buyAccountId: newAccount2.data._id,
     sellAccountId: newAccount1.data._id,
-    userId: elisa.data._id,
   })
 
   // const newTrade2 = await axios.post('/trades', {

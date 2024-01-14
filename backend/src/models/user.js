@@ -42,18 +42,9 @@ class User {
       }
     }
   }
-  async executeTrade(
-    currencyPair,
-    buySellFlag,
-    executionRate,
-    amount,
-    valueDate,
-    buyAccountId,
-    sellAccountId,
-    tradeTime
-  ) {
-    const buyCurrency = currencyPair.slice(0, 3)
-    const sellCurrency = currencyPair.slice(3, 6)
+  async executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId) {
+    const buyCurrency = buySellFlag === 'Buy' ? currencyPair.slice(0, 3) : currencyPair.slice(3, 6)
+    const sellCurrency = buySellFlag === 'Buy' ? currencyPair.slice(3, 6) : currencyPair.slice(0, 3)
     const buyAccount = await Account.findById(buyAccountId)
     const sellAccount = await Account.findById(sellAccountId)
 

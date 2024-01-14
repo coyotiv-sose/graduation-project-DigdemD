@@ -10,9 +10,10 @@ router.get('/', async function (req, res, next) {
   res.send(await Trade.find())
 })
 //post new Trade
-router.post('/', async function (req, res, next) {
-  const { currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId, userId } = req.body
-  const user = await User.findById(req.body.userId)
+router.post('/:userId', async function (req, res, next) {
+  const { userId } = req.params
+  const { currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId } = req.body
+  const user = await User.findById(userId)
   const sellAccount = await Account.findById(sellAccountId)
   const buyAccount = await Account.findById(buyAccountId)
   console.log(user)
