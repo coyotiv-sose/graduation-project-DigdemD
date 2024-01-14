@@ -48,12 +48,25 @@ describe('Test the api', () => {
     expect(response.body).toMatchObject(expectedOutput)
   })
 
-  // test('Test of update account', async () => {
-  //   const response = await request(app).put('/accounts').send({
-  //     status: 'Passive',
-  //     name: 'Hedge Account',
-  //   })
+  test('should  update status of an account', async () => {
+    const charles = await request(app).post('/users').send({
+      name: 'Charles',
+      surname: 'Darwin',
+    })
+    const accountOfCharlesNo1 = await request(app).post('/accounts').send({
+      ownerId: charles.body._id,
+      currency: 'EUR',
+    })
+    const accountOfCharlesNo2 = await request(app).post('/accounts').send({
+      ownerId: charles.body._id,
+      currency: 'USD',
+    })
 
-  //   expect(response.body.name).toBe('Mete')
-  // })
+    const expectedOutput = { _id: accountOfCharlesNo1.body._id, owner: charles.body, status: 'Passive' }
+    const response = await request(app)
+      .put(`/accounts/${accountOfCharlesNo1.body._id}`)
+      .send({
+        newValues: { status: 'xxx' },
+      })
+  })
 })
