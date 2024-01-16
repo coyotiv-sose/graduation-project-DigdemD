@@ -30,6 +30,7 @@ class Account {
     //this.#transactions.push(amount)
     this.balance = this.balance + amount
     await this.save()
+    return this.balance
   }
 
   async withdraw(amount) {
@@ -37,6 +38,7 @@ class Account {
     //this.#transactions.push(amount)
     this.balance = this.balance - amount
     await this.save()
+    return this.balance
   }
 
   get transactions() {

@@ -54,7 +54,6 @@ router.post('/', async function (req, res, next) {
 router.post(`/:userId/transfers`, async function (req, res, next) {
   const { userId } = req.params
   const { senderAccountId, receiverAccountId, amount } = req.body
-  console.log('amount: ', typeof amount)
 
   const user = await User.findById(userId)
   const senderAccount = await Account.findById(senderAccountId)
@@ -64,8 +63,8 @@ router.post(`/:userId/transfers`, async function (req, res, next) {
     from: senderAccount,
     to: receiverAccount,
   })
-
-  res.status(200).send(transfer)
+  console.log(`we would like to see transfer ${transfer}`)
+  res.send({ transferredAmount: transfer })
 })
 
 //delete user --ok

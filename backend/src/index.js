@@ -73,17 +73,25 @@ async function main() {
   const newExternalTransfer = await axios.post(`/users/${elisa.data._id}/transfers`, {
     senderAccountId: null,
     receiverAccountId: newAccount1.data._id,
-    amount: 50000,
+    amount: 49000,
   })
+
+  console.log(
+    `do new external transfer 1 test expects an amount of 49000 sent back, actual response`,
+    newExternalTransfer.data.transferredAmount
+  )
 
   const newExternalTransfer2 = await axios.post(`/users/${elisa.data._id}/transfers`, {
     senderAccountId: null,
     receiverAccountId: newAccount2.data._id,
     amount: 50000,
   })
-
+  console.log(
+    `do new external transfer 2 test expects an amount of 50000 sent back, actual response`,
+    newExternalTransfer2.data.transferredAmount
+  )
   //create new Trade
-  const newTrade1 = await axios.post('/trades', {
+  const newTrade1 = await axios.post(`/trades/${elisa.data._id}`, {
     currencyPair: 'EURUSD',
     buySellFlag: 'Buy',
     executionRate: '2',
@@ -91,19 +99,19 @@ async function main() {
     valueDate: '01.05.2023',
     buyAccountId: newAccount2.data._id,
     sellAccountId: newAccount1.data._id,
-    userId: elisa.data._id,
+    // userId: elisa.data._id,
   })
 
   //create new Trade (sell)
-  const newTrade2 = await axios.post('/trades/elisa.data._id', {
-    currencyPair: 'EURUSD',
-    buySellFlag: 'Sell',
-    executionRate: '2',
-    amount: 400,
-    valueDate: '01.05.2023',
-    buyAccountId: newAccount2.data._id,
-    sellAccountId: newAccount1.data._id,
-  })
+  // const newTrade2 = await axios.post(`/trades/${elisa.data._id}`, {
+  //   currencyPair: 'EURUSD',
+  //   buySellFlag: 'Sell',
+  //   executionRate: '2',
+  //   amount: 400,
+  //   valueDate: '01.05.2023',
+  //   buyAccountId: newAccount2.data._id,
+  //   sellAccountId: newAccount1.data._id,
+  // })
 
   // const newTrade2 = await axios.post('/trades', {
   //   currencyPair: 'EURUSD',
