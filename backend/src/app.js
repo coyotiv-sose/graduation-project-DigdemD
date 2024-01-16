@@ -3,18 +3,23 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+
 require('dotenv').config()
 require('./database-connection')
+
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const tradesRouter = require('./routes/trades')
 const accountsRouter = require('./routes/accounts')
 const app = express()
 const autopopulate = require('mongoose-autopopulate')
+const cors = require('cors')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
+
+app.use(cors())
 
 app.use(logger('dev'))
 app.use(express.json())
