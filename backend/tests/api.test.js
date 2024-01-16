@@ -68,6 +68,7 @@ describe('Test the api', () => {
       .send({
         newValues: { status: 'Passive' },
       })
+    expect(response.body.status).toBe(expectedOutput.status)
   })
   test('should  manage external balance  transfer', async () => {
     const charles = await request(app).post('/users').send({
@@ -83,12 +84,14 @@ describe('Test the api', () => {
       currency: 'USD',
     })
 
-    const expectedOutput = { _id: accountOfCharlesNo1.body._id, owner: charles.body, status: 'Passive' }
+    const expectedOutput = { _id: accountOfCharlesNo1.body._id, owner: charles.body, balance: 500000 }
     const response = await request(app).post(`/users/${charles.body._id}/transfers`).send({
       senderAccountId: null,
       receiverAccountId: accountOfCharlesNo1.body._id,
       amount: 500000,
     })
+
+    expect(response.body.transferredAmount).toBe(expectedOutput.balance)
   })
   test('should  create a new Trade', async () => {
     const charles = await request(app).post('/users').send({
