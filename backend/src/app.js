@@ -13,13 +13,21 @@ const tradesRouter = require('./routes/trades')
 const accountsRouter = require('./routes/accounts')
 const app = express()
 const autopopulate = require('mongoose-autopopulate')
+
+//communication to the frontend
 const cors = require('cors')
+const session = require('express-session')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 app.use(cors())
+app.use(
+  session({
+    secret: 'SuperSecureSecretNobadyKnows',
+  })
+)
 
 app.use(logger('dev'))
 app.use(express.json())
