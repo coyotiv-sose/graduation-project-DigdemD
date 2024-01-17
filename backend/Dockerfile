@@ -11,6 +11,7 @@ RUN npm install
 
 ADD bin ./bin
 
-ADD src ./src
+
+
 
 CMD ["nodemon"]
