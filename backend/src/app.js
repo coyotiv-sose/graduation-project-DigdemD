@@ -17,6 +17,7 @@ const autopopulate = require('mongoose-autopopulate')
 //communication to the frontend
 const cors = require('cors')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -33,6 +34,10 @@ app.use(
       httpOnly: process.env.ENVIRONMENT === 'production',
       maxAge: 1000 * 60 * 60 * 24 * 7, // how long the cookie is valid in ms
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_CONNECTION_STRING,
+      stringify: false,
+    }),
   })
 )
 
