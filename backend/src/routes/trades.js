@@ -11,6 +11,7 @@ router.get('/', async function (req, res, next) {
 })
 //post new Trade
 router.post('/:userId', async function (req, res, next) {
+  //Id yi ucur body e koy
   const { userId } = req.params
   const { currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId } = req.body
   const user = await User.findById(userId)

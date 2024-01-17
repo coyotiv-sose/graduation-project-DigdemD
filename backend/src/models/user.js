@@ -99,7 +99,6 @@ class User {
   async externalBalanceTransfer(amount, { from, to }) {
     const senderAccount = from
     const receiverAccount = to
-    console.log(`receiver account ${receiverAccount}`)
 
     if (!senderAccount) {
       //const receiverAccount = this.accounts.find(account => account._id === receiverAccountId)
