@@ -21,10 +21,20 @@ const router = createRouter({
     {
       path: '/accounts',
       name: 'accounts',
+
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AccountsView.vue')
+    },
+    {
+      path: '/trades',
+      name: 'trades',
+
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/TradesView.vue')
     }
   ]
 })
