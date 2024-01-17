@@ -9,8 +9,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    environment:
-      - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/floater
+    env_file:
+      - ./backend/.env
     volumes:
       - ./backend/src:/src
 
