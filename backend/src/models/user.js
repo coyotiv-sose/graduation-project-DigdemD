@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
+const passportLocalMongoose = require('passport-local-mongoose')
 //const { Parser } = require('json2csv')
 const fs = require('fs') //filesystem module in node.js
 
@@ -10,7 +11,7 @@ const userSchema = new mongoose.Schema(
   {
     name: String,
     surname: String,
-    email: String,
+    //email: String,will be coming from passportLocalMongoose
     mobile: String,
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account', autopopulate: true }],
     trades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trade' }],
@@ -155,5 +156,6 @@ class User {
 
 //module.exports = User
 userSchema.loadClass(User)
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' })
 userSchema.plugin(autopopulate)
 module.exports = mongoose.model('User', userSchema)
