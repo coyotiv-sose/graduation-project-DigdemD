@@ -132,6 +132,12 @@ async function main() {
   //accountList
   // const callAccounts = await axios.get('/users')
   // console.log(callAccounts.data)
+
+  const newUser = await axios.post('/authentication/newUser', {
+    email: 'john@doe.com',
+    nickName: 'Johnny',
+    password: '1234',
+  })
 }
 
 main()

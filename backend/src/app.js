@@ -11,6 +11,8 @@ const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const tradesRouter = require('./routes/trades')
 const accountsRouter = require('./routes/accounts')
+var authenticationRouter = require('./routes/authentication.js')
+
 const app = express()
 const autopopulate = require('mongoose-autopopulate')
 
@@ -20,7 +22,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 
 // requires the model with Passport-Local Mongoose plugged in
-const User = require('./models/user')
+const User = require('./models/authUser')
 const passport = require('passport')
 
 // view engine setup
@@ -77,6 +79,7 @@ app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/trades', tradesRouter)
 app.use('/accounts', accountsRouter)
+app.use('/authentication', authenticationRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

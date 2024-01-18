@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
   {
     name: String,
     surname: String,
-    //email: String,will be coming from passportLocalMongoose
+    email: String, //will be coming from passportLocalMongoose
     mobile: String,
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account', autopopulate: true }],
     trades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trade' }],
