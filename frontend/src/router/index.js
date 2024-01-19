@@ -40,6 +40,11 @@ const router = createRouter({
       path: '/login', // the url u type in browser such as localhost:5137/test
       name: 'login',
       component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/signUp', // the url u type in browser such as localhost:5137/test
+      name: 'signUp',
+      component: () => import('../views/SignUpView.vue')
     }
   ]
 })
