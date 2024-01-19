@@ -18,4 +18,8 @@ router.post('/session', passport.authenticate('local', { failWithError: true }),
   res.send(req.user)
 })
 
+router.get('/session', function (req, res) {
+  res.send(req.user)
+})
+
 module.exports = router

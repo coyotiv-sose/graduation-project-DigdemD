@@ -18,7 +18,6 @@ export default {
     this.trades = await this.fetchTrades()
   }
 }
-//}
 </script>
 <template>
   <main>

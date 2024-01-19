@@ -1,39 +1,31 @@
 <script>
 import axios from 'axios'
+import { useAuthenticationStore } from '@/stores/authentication'
+import { mapActions } from 'pinia'
+
 export default {
   name: 'LoginView',
   components: {},
   data() {
     return {
-      username: '',
-      password: '',
-      status: '',
-      user: null
+      email: '',
+      password: ''
     }
   },
   methods: {
-    async login() {
-      const newUser = await axios.post('http://localhost:3000/authentication/session', {
-        email: this.username,
-        password: this.password
-      })
-      if (newUser) {
-        this.user = newUser.data
-        this.status = 'Login successful'
-      } else {
-        this.user = null
-        this.status = 'Login failed'
-      }
-      console.log(newUser.data)
+    ...mapActions(useAuthenticationStore, ['login']),
+
+    async doLogin() {
+      this.login(this.email, this.password)
     }
   }
 }
 </script>
 <template>
   <form v-on:submit.prevent>
-    <input type="text" placeholder="Username" v-model="username" required />
+    <input type="text" placeholder="Email" v-model="email" required />
     <input type="password" placeholder="Password" v-model="password" required />
-    <button type="submit" @click="login">Login</button>
+    <button type="submit" @click="doLogin">Login</button>
     <label>{{ status }}</label>
     <label v-if="user">Are u allowed to see this?</label>
   </form>
