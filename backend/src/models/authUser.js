@@ -1,12 +1,7 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 
-const authUserSchema = new mongoose.Schema({
-  nickName: {
-    type: String,
-    required: true,
-  },
-})
+const authUserSchema = new mongoose.Schema({})
 
 class AuthUser {}
 

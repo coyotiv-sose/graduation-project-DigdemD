@@ -22,14 +22,19 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 
 // requires the model with Passport-Local Mongoose plugged in
-const User = require('./models/authUser')
+const User = require('./models/user')
 const passport = require('passport')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-app.use(cors())
+app.use(
+  cors({
+    origin: true, //by deployment fe url will be added
+    credentials: true,
+  })
+)
 app.use(
   session({
     secret: 'SuperSecureSecretNobodyKnows', // is required to enrcypt your session specifically to you like

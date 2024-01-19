@@ -139,7 +139,7 @@ async function main() {
     password: '1234',
   })
 
-  const newUser = await axios.post('/authentication/session', {
+  const newUser2 = await axios.post('/authentication/session', {
     email: 'john@doe.com',
     password: '1234',
   })

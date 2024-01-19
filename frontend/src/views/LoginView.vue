@@ -7,7 +7,8 @@ export default {
     return {
       username: '',
       password: '',
-      status: ''
+      status: '',
+      user: null
     }
   },
   methods: {
@@ -17,8 +18,10 @@ export default {
         password: this.password
       })
       if (newUser) {
+        this.user = newUser.data
         this.status = 'Login successful'
       } else {
+        this.user = null
         this.status = 'Login failed'
       }
       console.log(newUser.data)
@@ -32,6 +35,7 @@ export default {
     <input type="password" placeholder="Password" v-model="password" required />
     <button type="submit" @click="login">Login</button>
     <label>{{ status }}</label>
+    <label v-if="user">Are u allowed to see this?</label>
   </form>
 </template>
 <style scoped>
