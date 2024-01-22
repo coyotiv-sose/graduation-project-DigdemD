@@ -10,8 +10,8 @@ export default {
     RouterLink,
     RouterView
   },
-  async mounted() {
-    await this.connect()
+  mounted() {
+    this.connect()
   },
   computed: {
     ...mapState(socketStore, ['connected', 'time'])
@@ -24,15 +24,13 @@ export default {
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
       <HelloWorld msg="Gybing FX Trading" />
-      <br />
-      <label> Socket connection working: {{ connected ? 'yes' : 'no' }}</label>
-      <br />
-      <label> Current time: {{ time }}</label>
-      <br />
+
+      <p>Socket connection working: {{ connected ? 'yes' : 'no' }}</p>
+
+      <p>Current time: {{ time }}</p>
+
       <nav>
         <!-- <RouterLink to="/">Home</RouterLink> -->
         <!-- <RouterLink to="/about">About</RouterLink> -->
@@ -48,6 +46,8 @@ export default {
 header {
   line-height: 1.5;
   max-height: 100vh;
+  display: flex;
+  flex-direction: row;
 }
 
 .logo {

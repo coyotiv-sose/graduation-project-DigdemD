@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios'
 import { useAuthenticationStore } from '@/stores/authentication'
 import { mapActions } from 'pinia'
 

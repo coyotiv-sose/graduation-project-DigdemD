@@ -8,7 +8,7 @@ export const socketStore = defineStore('socket', {
   }),
   actions: {
     connect() {
-      const socket = io('http://localhost:3000')
+      const socket = io('http://localhost:3000', { withCredentials: true })
 
       console.log('Establishing socket connection')
 
