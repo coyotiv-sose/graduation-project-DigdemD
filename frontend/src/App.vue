@@ -14,7 +14,7 @@ export default {
     await this.connect()
   },
   computed: {
-    ...mapState(socketStore, ['connected'])
+    ...mapState(socketStore, ['connected', 'time'])
   },
   methods: {
     ...mapActions(socketStore, ['connect'])
@@ -31,10 +31,12 @@ export default {
       <br />
       <label> Socket connection working: {{ connected ? 'yes' : 'no' }}</label>
       <br />
+      <label> Current time: {{ time }}</label>
+      <br />
       <nav>
         <!-- <RouterLink to="/">Home</RouterLink> -->
         <!-- <RouterLink to="/about">About</RouterLink> -->
-        <RouterLink to="/login">Login</RouterLink>
+        <!-- <RouterLink to="/login">Login</RouterLink> -->
       </nav>
     </div>
   </header>

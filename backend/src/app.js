@@ -116,7 +116,11 @@ app.createSocketServer = function (server) {
     socket.on('disconnect', () => {
       console.log('user disconnected')
     })
-  })
+
+    setInterval(() => {
+      socket.emit('time', new Date().toTimeString().slice(0, 8))
+    }, 1000)
+  }) //sends time data   every second to client side {1000 milisecond refers hier as 1 sec}
 }
 console.log('i am alive! & blubb blubb')
 module.exports = app
