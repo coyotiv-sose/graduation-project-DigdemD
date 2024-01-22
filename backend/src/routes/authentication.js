@@ -22,4 +22,12 @@ router.get('/session', function (req, res) {
   res.send(req.user)
 })
 
+//logout
+router.delete('/session', function (req, res) {
+  req.logout(() => {
+    console.log('User logged out')
+    res.sendStatus(200)
+  })
+})
+
 module.exports = router

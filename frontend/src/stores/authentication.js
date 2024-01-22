@@ -12,6 +12,11 @@ export const useAuthenticationStore = defineStore('authentication', {
       const loginUser = (await axios.post('/authentication/session', { email, password })).data
       this.user = loginUser
       return loginUser
+    },
+    async logout() {
+      console.log('user want to log out')
+      await axios.delete('/authentication/session')
+      this.user = null
     }
   }
 })
