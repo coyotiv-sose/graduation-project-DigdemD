@@ -23,4 +23,4 @@ export default {
     <a @click.prevent="doLogout" href="logout">Logout</a>
   </div>
 </template>
-<style></style>
+<style scoped></style>

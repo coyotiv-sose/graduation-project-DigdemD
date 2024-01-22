@@ -119,8 +119,15 @@ app.createSocketServer = function (server) {
 
     setInterval(() => {
       socket.emit('time', new Date().toTimeString().slice(0, 8))
+    }, 1000) //sends time data   every second to client side {1000 milisecond refers hier as 1 sec}
+    setInterval(() => {
+      socket.emit('eurusd', Math.floor(Math.random() * 1000))
     }, 1000)
-  }) //sends time data   every second to client side {1000 milisecond refers hier as 1 sec}
+
+    setInterval(() => {
+      socket.emit('gbpusd', Math.floor(Math.random() * 1000))
+    }, 1000)
+  })
 }
 console.log('i am alive! & blubb blubb')
 module.exports = app
