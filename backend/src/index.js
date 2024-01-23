@@ -13,6 +13,12 @@ async function main() {
     mobile: '215376',
     email: 'elisa@gmail.com',
   })
+  const johnny = await axios.post('/users', {
+    name: 'Johnny',
+    surname: 'Lam',
+    mobile: '2157376',
+    email: 'johnny@gmail.com',
+  })
 
   const max = await axios.post('/users', {
     name: 'Max',
