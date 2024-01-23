@@ -22,10 +22,24 @@ export default {
 <template>
   <Header>Header</Header>
   Welcome on Board <this class="user">{{ user }}</this>
+  <div class="trade-box">
+    <p>EUR/USD</p>
+    <button>Buy: {{ eurusd }}</button>
+    <button>Sell: {{ eurusd }}</button>
+  </div>
   <br />
-  <label>EUR/USD: {{ eurusd }}</label>
-  <br />
-  <label>GBP/USD: {{ gbpusd }}</label>
-  <button>{{ gbpusd }}</button>
+  <div class="trade-box">
+    <p>GBP/USD</p>
+    <button>Buy:{{ gbpusd }}</button>
+    <button>Sell:{{ gbpusd }}</button>
+  </div>
 </template>
-<style></style>
+<style scoped>
+.trade-box {
+  border: 1px solid black;
+  width: 200px;
+  height: 100px;
+  padding: 16px;
+  background-color: darkgray;
+}
+</style>
