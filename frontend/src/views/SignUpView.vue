@@ -16,7 +16,7 @@ export default {
   methods: {
     async signUp() {
       const newUser = await axios.post(
-        'http://localhost:3000/authentication/newUser',
+        import.meta.env.VITE_BACKEND_URL + '/authentication/newUser',
         {
           name: this.name,
           surname: this.surname,

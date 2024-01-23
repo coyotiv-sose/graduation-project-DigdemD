@@ -8,8 +8,7 @@ export const socketStore = defineStore('socket', {
   }),
   actions: {
     connect() {
-      const socket = io('http://localhost:3000', { withCredentials: true })
-
+      const socket = io(import.meta.env.VITE_BACKEND_URL, { withCredentials: true })
       console.log('Establishing socket connection')
 
       socket.on('connect', () => {

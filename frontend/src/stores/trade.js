@@ -6,7 +6,7 @@ export const useTradeStore = defineStore('trade', {
 
   actions: {
     async fetchTrades() {
-      const trades = (await axios.get('http://localhost:3000/trades')).data
+      const trades = (await axios.get(import.meta.env.VITE_BACKEND_URL + '/trades')).data
 
       return trades
     }

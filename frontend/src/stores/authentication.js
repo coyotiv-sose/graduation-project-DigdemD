@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL
 
 export const useAuthenticationStore = defineStore('authentication', {
   state: () => ({ user: null }),

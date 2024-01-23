@@ -6,7 +6,7 @@ export const useAccountStore = defineStore('account', {
 
   actions: {
     async fetchAccounts() {
-      const accounts = (await axios.get('http://localhost:3000/accounts')).data
+      const accounts = (await axios.get(import.meta.env.VITE_BACKEND_URL + '/accounts')).data
 
       return accounts
     }

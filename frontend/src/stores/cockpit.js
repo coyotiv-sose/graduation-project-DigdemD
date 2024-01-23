@@ -9,7 +9,7 @@ export const cockpitStore = defineStore('cockpit', {
 
   actions: {
     connect() {
-      const socket = io('http://localhost:3000', { withCredentials: true })
+      const socket = io(import.meta.env.VITE_BACKEND_URL, { withCredentials: true })
       socket.on('eurusd', (eurusd) => {
         this.eurusd = eurusd
       })
