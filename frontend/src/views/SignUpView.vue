@@ -7,7 +7,6 @@ export default {
     return {
       name: '',
       surname: '',
-
       email: '',
       mobile: '',
       password: ''
@@ -15,6 +14,7 @@ export default {
   },
   methods: {
     async signUp() {
+      console.log(import.meta.env.VITE_BACKEND_URL)
       const newUser = await axios.post(
         import.meta.env.VITE_BACKEND_URL + '/authentication/newUser',
         {
@@ -30,6 +30,7 @@ export default {
       if (newUser) {
         this.user = newUser.data
         this.status = 'Register successful'
+        this.$router.push('/login')
       } else {
         this.user = null
         this.status = 'Register failed'
