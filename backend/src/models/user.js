@@ -29,8 +29,14 @@ const userSchema = new mongoose.Schema(
 
 class User {
   async openAccount(currency) {
-    const newAccount = await Account.create({ currency: currency, owner: this.id })
+    //Check if users first account with required ccy. If yes it will be set as default account with this ccy
+    let isDefault = false
+    //retrieve users account
+    const accountsList = await Account.find({ owner: this._id }).lean().exec()
+    const accountsCurrency = accountsList.map(accounts => accounts.currency)
+    accountsCurrency.includes(currency) ? (isDefault = false) : (isDefault = true)
 
+    const newAccount = await Account.create({ currency: currency, owner: this.id, isDefault: isDefault })
     this.accounts.push(newAccount)
     await newAccount.save()
     await this.save()

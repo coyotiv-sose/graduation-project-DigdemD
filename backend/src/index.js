@@ -65,6 +65,14 @@ async function main() {
     ownerId: elisa.data._id,
     currency: 'CAD',
   })
+  const newAccount4 = await axios.post(`/accounts`, {
+    ownerId: elisa.data._id,
+    currency: 'JPY',
+  })
+  const newAccount5 = await axios.post(`/accounts`, {
+    ownerId: elisa.data._id,
+    currency: 'EUR',
+  })
 
   //update Account
   const updatedAccount = await axios.put(`/accounts/${newAccount3.data._id}`, {

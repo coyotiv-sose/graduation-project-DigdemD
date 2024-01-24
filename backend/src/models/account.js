@@ -12,6 +12,7 @@ const accountSchema = new mongoose.Schema(
     overdraft: { type: Number, default: 0, select: false },
     status: { type: String, default: 'Active' },
     name: String,
+    isDefault: Boolean,
   },
   { timestamps: true }
 )
