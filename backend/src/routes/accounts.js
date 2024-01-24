@@ -23,9 +23,9 @@ router.post('/', async function (req, res, next) {
 router.put('/:accountId', async function (req, res, next) {
   const { accountId } = req.params
   const { newValues } = req.body //= req.body.newValues
-  let account = await Account.findById(accountId)
+  let account = await Account.findByIdAndUpdate(accountId, newValues, { new: true })
 
-  Object.assign(account, newValues)
+  //Object.assign(account, newValues)
   res.send(account)
 })
 module.exports = router
