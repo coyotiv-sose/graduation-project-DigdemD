@@ -8,7 +8,7 @@ router.post('/newUser', async function (req, res, next) {
   const { name, surname, email, mobile, password } = req.body
   const newUser = await User.register({ name, surname, email, mobile }, password)
 
-  console.log('new user details' + newUser)
+  //console.log('new user details' + newUser)
   res.send(newUser)
 })
 

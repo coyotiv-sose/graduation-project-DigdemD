@@ -68,7 +68,7 @@ app.use((req, res, next) => {
   req.session.ip = req.ip
   req.session.userName = 'Hans'
 
-  console.log('Show me my request:', req.session)
+  //console.log('Show me my request:', req.session)
 
   next()
 })

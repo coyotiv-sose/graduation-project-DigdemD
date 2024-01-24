@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 
 const User = require('../models/user')
-const Trade = require('../models/trade')
 const Account = require('../models/account')
 
 /* GET accounts listing. */
