@@ -42,6 +42,7 @@ class User {
     await this.save()
     return newAccount
   }
+  //tasi
   deleteAccount(accId) {
     for (let i = 0; i < this.accounts.length; i++) {
       if (this.accounts[i].accId === accId) {
@@ -49,11 +50,11 @@ class User {
       }
     }
   }
-  async executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccountId, sellAccountId) {
-    const buyCurrency = buySellFlag === 'Buy' ? currencyPair.slice(0, 3) : currencyPair.slice(3, 6)
-    const sellCurrency = buySellFlag === 'Buy' ? currencyPair.slice(3, 6) : currencyPair.slice(0, 3)
-    const buyAccount = await Account.findById(buyAccountId)
-    const sellAccount = await Account.findById(sellAccountId)
+  async executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount) {
+    const buyCurrency =
+      buySellFlag === 'buy' ? currencyPair.slice(0, 3).toUpperCase() : currencyPair.slice(3, 6).toUpperCase()
+    const sellCurrency =
+      buySellFlag === 'buy' ? currencyPair.slice(3, 6).toUpperCase() : currencyPair.slice(0, 3).toUpperCase()
 
     let buyAmount = buySellFlag === 'Buy' ? amount : amount * executionRate
     let sellAmount = buySellFlag === 'Buy' ? amount * executionRate : amount

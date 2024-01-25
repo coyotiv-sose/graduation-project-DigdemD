@@ -15,7 +15,7 @@ export default {
     ...mapActions(useAuthenticationStore, ['login']),
 
     async doLogin() {
-      this.login(this.email, this.password)
+      await this.login(this.email, this.password)
       this.$router.push('/cockpit')
     }
   }
