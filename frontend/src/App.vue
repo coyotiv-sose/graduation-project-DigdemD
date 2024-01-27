@@ -3,6 +3,8 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import { mapState, mapActions } from 'pinia'
 import { socketStore } from './stores/socket'
+import { useAuthenticationStore } from './stores/authentication'
+
 export default {
   name: 'App',
   components: {
@@ -10,14 +12,17 @@ export default {
     RouterLink,
     RouterView
   },
-  mounted() {
+  async mounted() {
     this.connect()
+    await this.fetchUser()
   },
   computed: {
-    ...mapState(socketStore, ['connected', 'time'])
+    ...mapState(socketStore, ['connected', 'time']),
+    ...mapState(useAuthenticationStore, ['user'])
   },
   methods: {
-    ...mapActions(socketStore, ['connect'])
+    ...mapActions(socketStore, ['connect']),
+    ...mapActions(useAuthenticationStore, ['fetchUser'])
   }
 }
 </script>

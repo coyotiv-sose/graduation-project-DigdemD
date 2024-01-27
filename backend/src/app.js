@@ -44,6 +44,7 @@ app.use(
       secure: process.env.ENVIRONMENT === 'production', // TODO: set to true when using https
       httpOnly: process.env.ENVIRONMENT === 'production',
       maxAge: 1000 * 60 * 60 * 24 * 7, // how long the cookie is valid in ms
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : '',
     },
     store: MongoStore.create({
       mongoUrl: process.env.MONGODB_CONNECTION_STRING,
@@ -121,17 +122,17 @@ app.createSocketServer = function (server) {
       socket.emit('time', new Date().toTimeString().slice(0, 8))
     }, 1000) //sends time data   every second to client side {1000 milisecond refers hier as 1 sec}
     setInterval(() => {
-      socket.emit('eurusd', Math.random())
+      socket.emit('eurusd', Math.random() + 1)
     }, 1000)
     setInterval(() => {
-      socket.emit('eurusdsell', Math.floor(Math.random()))
+      socket.emit('eurusdsell', Math.random() + 1)
     }, 1000)
 
     setInterval(() => {
-      socket.emit('gbpusd', Math.floor(Math.random()))
+      socket.emit('gbpusd', Math.random() + 1)
     }, 1000)
     setInterval(() => {
-      socket.emit('gbpusdsell', Math.floor(Math.random()))
+      socket.emit('gbpusdsell', Math.random() + 1)
     }, 1000)
   })
 }
