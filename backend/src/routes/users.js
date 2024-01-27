@@ -32,9 +32,9 @@ router.get('/:userId/accounts', async function (req, res, next) {
 })
 
 //get single user/trade(dynamic)
-router.get('/:userName/trades', async function (req, res, next) {
-  const { userName } = req.params
-  const user = User.findOne({ name: req.params.userName })
+router.get('/:userId/trades', async function (req, res, next) {
+  const { userId } = req.params
+  const user = User.findOne({ name: req.params.userId })
 
   res.send(await user.trades)
 })
