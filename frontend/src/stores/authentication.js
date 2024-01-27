@@ -13,6 +13,11 @@ export const useAuthenticationStore = defineStore('authentication', {
       this.user = loginUser
       return loginUser
     },
+    async fetchUser() {
+      const user = (await axios.get('/authentication/session')).data
+      this.user = user
+      return user
+    },
     async logout() {
       console.log('user want to log out')
       await axios.delete('/authentication/session')

@@ -25,22 +25,39 @@ export default {
   },
   methods: {
     ...mapActions(cockpitStore, ['connect', 'executeTrade']),
-    // get account(pair){
 
-    // }
+    getAccount(pairName, buySellFlag) {
+      const buyCurrency =
+        buySellFlag === 'buy'
+          ? pairName.slice(0, 3).toUpperCase()
+          : pairName.slice(3, 6).toUpperCase()
+      const sellCurrency =
+        buySellFlag === 'sell'
+          ? pairName.slice(0, 3).toUpperCase()
+          : pairName.slice(3, 6).toUpperCase()
+
+      const buyAccount = this.user.accounts.find((account) => account.currency == buyCurrency)
+
+      const sellAccount = this.user.accounts.find((account) => account.currency == sellCurrency)
+
+      return { buyAccount, sellAccount }
+    },
 
     async doExecuteTrade(pair, buySellFlag, executionRate) {
+      const accounts = this.getAccount(pair.name, buySellFlag)
+
       buySellFlag === 'buy' ? (pair.rate = pair.buyRate) : (pair.rate = pair.sellRate)
       await this.executeTrade(
-        '65a97a0b52e47144d7612f06',
+        this.user._id,
         pair.name,
         buySellFlag,
         pair.rate,
         this.amount,
         this.valueDate,
-        '65a97a0b52e47144d7612f2d', //b
-        '65a97a0b52e47144d7612f11'
+        accounts.buyAccount._id,
+        accounts.sellAccount._id
       )
+      this.$router.push('/tradeHistory')
     }
   }
 }
@@ -64,7 +81,7 @@ export default {
 .trade-box {
   border: 1px solid black;
   width: 210px;
-  height: 110px;
+  height: 150px;
   /* padding: 10px; */
   background-color: darkgray;
 }
