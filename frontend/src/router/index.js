@@ -16,13 +16,13 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/accounts',
+      path: '/:userId/accounts',
       name: 'accounts',
       component: () => import('../views/AccountsView.vue')
     },
     {
-      path: '/trades',
-      name: 'trades',
+      path: '/tradeHistory',
+      name: 'tradeHistory',
       component: () => import('../views/TradesView.vue')
     },
     {
