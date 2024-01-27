@@ -1,5 +1,5 @@
 <script>
-import Header from './Header.vue'
+// import Header from './Header.vue'
 import { cockpitStore } from '@/stores/cockpit'
 import { mapState, mapActions } from 'pinia'
 import { useAuthenticationStore } from '@/stores/authentication'
@@ -7,7 +7,7 @@ import { useAuthenticationStore } from '@/stores/authentication'
 export default {
   name: 'Cockpit',
   components: {
-    Header
+    // Header
   },
   data() {
     //return is used  for default value
@@ -63,8 +63,9 @@ export default {
 }
 </script>
 <template>
-  <Header>Header</Header>
+  <!-- <Header>Header</Header> -->
   <!-- Welcome on Board <this class="user">{{ user.name }}</this> -->
+  <h1>Trading Cockpit</h1>
 
   <div class="trade-box" v-for="pair in this.currencyPairs" :key="pair.name">
     <p>{{ pair.name.toUpperCase() }}</p>

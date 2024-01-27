@@ -32,14 +32,19 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Gybing FX Trading" />
 
-      <p>Socket connection working: {{ connected ? 'yes' : 'no' }}</p>
+      <!-- <p>Socket connection working: {{ connected ? 'yes' : 'no' }}</p> -->
 
-      <p>Current time: {{ time }}</p>
+      <!-- <p>Current time: {{ time }}</p> -->
 
       <nav>
-        <!-- <RouterLink to="/">Home</RouterLink> -->
-        <!-- <RouterLink to="/about">About</RouterLink> -->
-        <!-- <RouterLink to="/login">Login</RouterLink> -->
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink to="/cockpit">Cockpit</RouterLink>
+        <RouterLink to="/${userId}/accounts">Accounts</RouterLink>
+        <RouterLink to="/${userId}/tradeHistory">Trade History</RouterLink>
+
+        <RouterLink to="/logout">Logout</RouterLink>
       </nav>
     </div>
   </header>
