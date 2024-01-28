@@ -21,6 +21,12 @@ const router = createRouter({
       component: () => import('../views/AccountsView.vue')
     },
     {
+      path: '/:userId/accounts/openAccount',
+      name: 'openAccount',
+      component: () => import('../views/OpenAccountView.vue')
+    },
+
+    {
       path: '/:userId/tradeHistory',
       name: 'tradeHistory',
       component: () => import('../views/TradesView.vue')

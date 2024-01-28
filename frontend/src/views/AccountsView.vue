@@ -1,7 +1,9 @@
 <script>
 import { useAccountStore } from '@/stores/account'
-import { mapStores } from 'pinia'
+import { mapStores, mapActions, mapState } from 'pinia'
 import axios from 'axios'
+import { useAuthenticationStore } from '@/stores/authentication'
+import { cockpitStore } from '@/stores/cockpit'
 
 export default {
   name: 'AccountsView',
@@ -11,40 +13,64 @@ export default {
       accounts: []
     }
   },
-  computed: {
-    ...mapStores(useAccountStore)
-  },
-  methods: {},
   async mounted() {
+    this.connect()
     this.accounts = await this.accountStore.fetchAccounts()
+  },
+  computed: {
+    ...mapStores(useAccountStore),
+    ...mapState(useAuthenticationStore, ['user'])
+  },
+  methods: {
+    ...mapActions(cockpitStore, ['connect']),
+
+    async doAddAccount(userId, currency) {
+      await this.addAccount(this.user._id, currency)
+    },
+    addAccount() {
+      this.$router.push('/${userId}/accounts/openAccount')
+    }
   }
 }
 </script>
 <template>
   <main>
-    <h1>Accounts</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Account ID</th>
-          <th>Currency</th>
-          <th>Balance</th>
-          <th>Status</th>
-          <th>Account Name</th>
-          <th>Account Opening Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="account in accounts" :key="account._id">
-          <td>{{ account._id }}</td>
-          <td>{{ account.currency }}</td>
-          <td>{{ account.balance }}</td>
-          <td>{{ account.status }}</td>
-          <td>{{ account.name }}</td>
-          <td>{{ account.createdAt }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <h1>Your Accounts</h1>
+    <div class="AccountList">
+      <table>
+        <thead>
+          <tr>
+            <th>Account ID</th>
+            <th>Currency</th>
+            <th>Balance</th>
+            <th>Status</th>
+            <th>Account Name</th>
+            <th>Account Opening Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="account in accounts" :key="account._id">
+            <td>{{ account._id }}</td>
+            <td>{{ account.currency }}</td>
+            <td>{{ account.balance }}</td>
+            <td>{{ account.status }}</td>
+            <td>{{ account.name }}</td>
+            <td>{{ account.createdAt }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br />
+    <div class="Balance Transfer">
+      <href>Balance Transfer</href>
+    </div>
+    <div class="AddAccount">
+      <h1>Would you like to open a new account?</h1>
+      <!-- <button @click="doExecuteTrade(pair, 'sell', pair.sellRate)">
+        Add Account: {{ pair.sellRate }}
+      </button> -->
+      <button @click="addAccount()">Open New Account</button>
+    </div>
   </main>
 </template>
 <style scoped>
