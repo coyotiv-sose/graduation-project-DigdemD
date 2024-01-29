@@ -1,20 +1,12 @@
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const mongoose = require('mongoose')
 
 require('dotenv').config()
 require('./database-connection')
-
-const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
-const tradesRouter = require('./routes/trades')
-const accountsRouter = require('./routes/accounts')
-var authenticationRouter = require('./routes/authentication.js')
-
-const app = express()
-const autopopulate = require('mongoose-autopopulate')
 
 //communication to the frontend
 const cors = require('cors')
@@ -25,9 +17,19 @@ const MongoStore = require('connect-mongo')
 const User = require('./models/user')
 const passport = require('passport')
 
+const indexRouter = require('./routes/index')
+const usersRouter = require('./routes/users')
+const tradesRouter = require('./routes/trades')
+const accountsRouter = require('./routes/accounts')
+const authenticationRouter = require('./routes/authentication.js')
+
+const app = express()
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
+
+const clientPromise = mongoose.connection.asPromise().then(connection => (connection = connection.getClient()))
 
 app.use(
   cors({
@@ -35,6 +37,9 @@ app.use(
     credentials: true,
   })
 )
+
+app.set('trust proxy', 1)
+
 app.use(
   session({
     secret: 'SuperSecureSecretNobodyKnows', // is required to enrcypt your session specifically to you like
@@ -42,12 +47,13 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: process.env.ENVIRONMENT === 'production', // TODO: set to true when using https
-      httpOnly: process.env.ENVIRONMENT === 'production',
+      // httpOnly: process.env.ENVIRONMENT === 'production',
       maxAge: 1000 * 60 * 60 * 24 * 7, // how long the cookie is valid in ms
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : '',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     },
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_CONNECTION_STRING,
+      clientPromise,
+
       stringify: false,
     }),
   })
@@ -67,9 +73,8 @@ app.use((req, res, next) => {
   req.session.history = req.session.history || []
   req.session.history.push(req.url)
   req.session.ip = req.ip
-  req.session.userName = 'Hans'
 
-  //console.log('Show me my request:', req.session)
+  console.log('Show me my request:', req.session)
 
   next()
 })
