@@ -9,7 +9,7 @@ export const useAccountStore = defineStore('account', {
 
   actions: {
     async fetchAccounts() {
-      const accounts = (await axios.get(`/users/accounts`)).data
+      const accounts = (await axios.get('/users/accountsUs')).data
 
       return accounts
     },

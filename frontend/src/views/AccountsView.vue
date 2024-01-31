@@ -16,6 +16,7 @@ export default {
   async mounted() {
     this.connect()
     this.accounts = await this.accountStore.fetchAccounts()
+    console.log ('we would like to see accoount', this.accounts)
   },
   computed: {
     ...mapStores(useAccountStore),
@@ -42,7 +43,7 @@ export default {
           <tr>
             <th>Account ID</th>
             <th>Currency</th>
-            <th>Balance</th>
+            <!-- <th>Balance</th> -->
             <th>Status</th>
             <th>Account Name</th>
             <th>Account Opening Date</th>
@@ -52,7 +53,7 @@ export default {
           <tr v-for="account in accounts" :key="account._id">
             <td>{{ account._id }}</td>
             <td>{{ account.currency }}</td>
-            <td>{{ account.balance }}</td>
+            <!-- <td>{{ account.balance }}</td> -->
             <td>{{ account.status }}</td>
             <td>{{ account.name }}</td>
             <td>{{ account.createdAt }}</td>
