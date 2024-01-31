@@ -14,5 +14,5 @@ ADD src ./src
 
 
 
-
-CMD ["nodemon"]
+# @Digdem: Please use npm run dev because nodemon alone will run into a memory problem after a while and crash.
+CMD ["npm","run","dev"]
