@@ -41,8 +41,8 @@ export default {
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/login">Login</RouterLink>
         <RouterLink to="/cockpit">Cockpit</RouterLink>
-        <RouterLink to="/${userId}/accounts">Accounts</RouterLink>
-        <RouterLink to="/${userId}/tradeHistory">Trade History</RouterLink>
+        <RouterLink to="/accounts">Accounts</RouterLink>
+        <RouterLink to="/tradeHistory">Trade History</RouterLink>
 
         <RouterLink to="/logout">Logout</RouterLink>
       </nav>

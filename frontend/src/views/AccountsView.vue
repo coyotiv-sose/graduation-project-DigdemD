@@ -24,11 +24,11 @@ export default {
   methods: {
     ...mapActions(cockpitStore, ['connect']),
 
-    async doAddAccount(userId, currency) {
-      await this.addAccount(this.user._id, currency)
+    async doAddAccount( currency) {
+      await this.addAccount( currency)
     },
     addAccount() {
-      this.$router.push(`/${this.user._id}/accounts/openAccount`)
+      this.$router.push(`/accounts/newAccount`)
     }
   }
 }

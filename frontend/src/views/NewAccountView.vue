@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'OpenAccountView'
+  name: 'NewAccountView'
 }
 </script>
 <template>

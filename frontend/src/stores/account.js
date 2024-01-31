@@ -12,10 +12,10 @@ export const useAccountStore = defineStore('account', {
       const accounts = (await axios.get(`/users/accounts`)).data
 
       return accounts
+    },
+    async addAccount( currency) {
+      const newAccount = (await axios.post('/accounts')).data
+      return newAccount
     }
-    // async addAccount(userId, currency) {
-    //   const newAccount = (await axios.post('/accounts')).data
-    //   return newAccount
-    // }
   }
 })
