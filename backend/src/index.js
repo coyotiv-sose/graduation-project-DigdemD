@@ -41,14 +41,14 @@ async function main() {
     email: 'chemi@gmail.com',
   })
 
-  //delete user
-  await axios.delete(`/users/${marie.data._id}`)
+  // //delete user
+  // await axios.delete(`/users/${marie.data._id}`)
 
-  //update user
-  const updatedElisa = await axios.put(`/users/${elisa.data._id} `, {
-    surname: 'Lam Edith',
-    email: 'elisaupdated@gmail.com',
-  })
+  // //update user
+  // const updatedElisa = await axios.put(`/users/${elisa.data._id} `, {
+  //   surname: 'Lam Edith',
+  //   email: 'elisaupdated@gmail.com',
+  // })
 
   //create new Account
   const newAccount1 = await axios.post(`/accounts`, {
@@ -82,62 +82,62 @@ async function main() {
     },
   })
 
-  //create external Transfer
+  // //create external Transfer
 
-  const newExternalTransfer = await axios.post(`/users/${elisa.data._id}/transfers`, {
-    senderAccountId: null,
-    receiverAccountId: newAccount1.data._id,
-    amount: 49000,
-  })
+  // const newExternalTransfer = await axios.post(`/users/${elisa.data._id}/transfers`, {
+  //   senderAccountId: null,
+  //   receiverAccountId: newAccount1.data._id,
+  //   amount: 49000,
+  // })
 
-  console.log(
-    `do new external transfer 1 test expects an amount of 49000 sent back, actual response`,
-    newExternalTransfer.data.transferredAmount
-  )
+  // console.log(
+  //   `do new external transfer 1 test expects an amount of 49000 sent back, actual response`,
+  //   newExternalTransfer.data.transferredAmount
+  // )
 
-  const newExternalTransfer2 = await axios.post(`/users/${elisa.data._id}/transfers`, {
-    senderAccountId: null,
-    receiverAccountId: newAccount2.data._id,
-    amount: 50000,
-  })
-  console.log(
-    `do new external transfer 2 test expects an amount of 50000 sent back, actual response`,
-    newExternalTransfer2.data.transferredAmount
-  )
-  //create new Trade
-  const newTrade1 = await axios.post(`/trades/${elisa.data._id}`, {
-    currencyPair: 'EURUSD',
-    buySellFlag: 'Buy',
-    executionRate: '2',
-    amount: 3000,
-    valueDate: '01.05.2023',
-    buyAccountId: newAccount2.data._id,
-    sellAccountId: newAccount1.data._id,
-    // userId: elisa.data._id,
-  })
-
-  //create new Trade (sell)
-  // const newTrade2 = await axios.post(`/trades/${elisa.data._id}`, {
+  // const newExternalTransfer2 = await axios.post(`/users/${elisa.data._id}/transfers`, {
+  //   senderAccountId: null,
+  //   receiverAccountId: newAccount2.data._id,
+  //   amount: 50000,
+  // })
+  // console.log(
+  //   `do new external transfer 2 test expects an amount of 50000 sent back, actual response`,
+  //   newExternalTransfer2.data.transferredAmount
+  // )
+  // //create new Trade
+  // const newTrade1 = await axios.post(`/trades/${elisa.data._id}`, {
   //   currencyPair: 'EURUSD',
-  //   buySellFlag: 'Sell',
+  //   buySellFlag: 'Buy',
   //   executionRate: '2',
-  //   amount: 400,
+  //   amount: 3000,
   //   valueDate: '01.05.2023',
   //   buyAccountId: newAccount2.data._id,
   //   sellAccountId: newAccount1.data._id,
+  //   // userId: elisa.data._id,
   // })
 
-  // const newTrade2 = await axios.post('/trades', {
-  //   currencyPair: 'EURUSD',
-  //   buySellFlag: 'Sell',
-  //   executionRate: '1.22',
-  //   amount: 88800,
-  //   valueDate: '01.01.2023',
-  //   buyAccount: 1,
-  //   sellAccount: 2,
-  //   userId: elisa.data.id,
-  // })
-  //tradeList
+  // //create new Trade (sell)
+  // // const newTrade2 = await axios.post(`/trades/${elisa.data._id}`, {
+  // //   currencyPair: 'EURUSD',
+  // //   buySellFlag: 'Sell',
+  // //   executionRate: '2',
+  // //   amount: 400,
+  // //   valueDate: '01.05.2023',
+  // //   buyAccountId: newAccount2.data._id,
+  // //   sellAccountId: newAccount1.data._id,
+  // // })
+
+  // // const newTrade2 = await axios.post('/trades', {
+  // //   currencyPair: 'EURUSD',
+  // //   buySellFlag: 'Sell',
+  // //   executionRate: '1.22',
+  // //   amount: 88800,
+  // //   valueDate: '01.01.2023',
+  // //   buyAccount: 1,
+  // //   sellAccount: 2,
+  // //   userId: elisa.data.id,
+  // // })
+  // //tradeList
   const callTrades = await axios.get('/trades')
 
   //userList
