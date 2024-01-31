@@ -28,7 +28,7 @@ export default {
       await this.addAccount(this.user._id, currency)
     },
     addAccount() {
-      this.$router.push('/${userId}/accounts/openAccount')
+      this.$router.push(`/${this.user._id}/accounts/openAccount`)
     }
   }
 }
