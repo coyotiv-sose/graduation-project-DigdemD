@@ -16,9 +16,9 @@ router.get('/:userName', async function (req, res, next) {
   res.send(await user)
 })
 //get single user/account(dynamic)
-router.get('/:userId/accounts', async function (req, res, next) {
-  const user = await User.findById(req.params.userId)
-
+router.get('/accounts', async function (req, res, next) {
+  const user = await User.findOne({ email: req.session.passport.user })
+  console.log('we would like to see our user ', user)
   res.send(user.accounts)
 })
 
