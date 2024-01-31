@@ -19,6 +19,11 @@ router.post('/', async function (req, res, next) {
   res.status(200).send(newAccount)
 })
 
+router.get('/all', async function (req, res, next) {
+  const user = await User.findOne({ email: req.session.passport.user })
+  res.send(user.accounts)
+})
+
 //update account --ok
 router.put('/:accountId', async function (req, res, next) {
   const { accountId } = req.params
