@@ -8,6 +8,12 @@ const Account = require('../models/account')
 router.get('/', async function (req, res, next) {
   res.send(await Account.find())
 })
+//all accounts of user
+router.get('/all', async function (req, res, next) {
+  console.log(req.session)
+  const user = await User.findOne({ email: req.session.passport.user })
+  res.send(user.accounts)
+})
 //post (create) new Account --ok
 router.post('/', async function (req, res, next) {
   const { currency } = req.body

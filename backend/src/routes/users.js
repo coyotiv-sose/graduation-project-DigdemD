@@ -15,18 +15,6 @@ router.get('/:userName', async function (req, res, next) {
 
   res.send(await user)
 })
-//get single user/account(dynamic)
-router.get('/accountsUs', async function (req, res, next) {
-  console.log('we need sth')
-  res.send(200)
-})
-
-// router.get('/accounts1', async function (req, res, next) {
-//   console.log('sth we need log here ')
-//   const user = await User.findOne({ email: req.session.passport?.user })
-//   console.log('we would like to see our user ', user)
-//   res.send(user.accounts)
-// })
 
 //get single user/trade(dynamic)
 router.get('/:userId/trades', async function (req, res, next) {

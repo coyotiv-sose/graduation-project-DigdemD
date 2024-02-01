@@ -51,10 +51,6 @@ async function main() {
   // })
 
   //create new Account
-  const newAccount1 = await axios.post(`/accounts`, {
-    ownerId: elisa.data._id,
-    currency: 'USD',
-  })
 
   const newAccount2 = await axios.post(`/accounts`, {
     ownerId: elisa.data._id,
@@ -143,9 +139,9 @@ async function main() {
   //userList
   const callUsers = await axios.get('/users')
 
-  //accountList
-  // const callAccounts = await axios.get('/users')
-  // console.log(callAccounts.data)
+  accountList
+  const callAccounts = await axios.get('/users')
+  console.log(callAccounts.data)
 
   const newUser = await axios.post('/authentication/newUser', {
     email: 'john@doe.com',
