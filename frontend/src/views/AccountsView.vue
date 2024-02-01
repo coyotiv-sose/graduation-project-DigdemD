@@ -45,6 +45,7 @@ export default {
             <th>Currency</th>
             <th>Balance</th>
             <th>Status</th>
+            <th>Is Default Account?</th>
             <th>Account Name</th>
             <th>Account Opening Date</th>
           </tr>
@@ -55,6 +56,7 @@ export default {
             <td>{{ account.currency }}</td>
             <td>{{ account.balance }}</td>
             <td>{{ account.status }}</td>
+            <td>{{ account.isDefault }}</td>
             <td>{{ account.name }}</td>
             <td>{{ account.createdAt }}</td>
           </tr>
