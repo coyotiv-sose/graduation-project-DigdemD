@@ -25,7 +25,7 @@ router.post('/', async function (req, res, next) {
   res.status(200).send(newAccount)
 })
 
-//update account --ok
+//update account --old
 router.put('/:accountId', async function (req, res, next) {
   const { accountId } = req.params
   const { newValues } = req.body //= req.body.newValues
@@ -33,5 +33,13 @@ router.put('/:accountId', async function (req, res, next) {
 
   //Object.assign(account, newValues)
   res.send(account)
+})
+//update account --new
+router.put('/account', async function (req, res, next) {
+  const { account } = req.params
+  const { newValues } = req.body //= req.body.newValues
+  let updatedAccount = await Account.findOneAndUpdate(account, newValues)
+
+  res.send(updatedAccount)
 })
 module.exports = router

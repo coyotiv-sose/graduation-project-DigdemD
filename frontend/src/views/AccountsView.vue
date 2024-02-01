@@ -35,7 +35,26 @@ export default {
     },
     addAccount() {
       this.$router.push(`/accounts/newAccount`)
-    }
+    },
+    toggleEditing(account){
+      account.editing=true
+    },
+    cancelEditing(account){
+      //fix cancel func
+      account.status=account.status
+      account.name=account.name
+      account.isDefault=account.isDefault
+
+      account.editing=false
+    },
+    //  saveEditing(account, status,name, isDefault ){
+    //     newValues: {
+    //     account.status=this.account.status,
+    //     account.name=this.account.name,
+    //     account.isDefault=this.account.isDefault
+    //     }
+    //   account.editing=true
+    // }
   }
 }
 </script>
@@ -60,10 +79,44 @@ export default {
             <td>{{ account._id }}</td>
             <td>{{ account.currency }}</td>
             <td>{{ account.balance }}</td>
-            <td>{{ account.status }}</td>
+            <!-- <td>{{ account.status }}</td>
             <td>{{ account.isDefault }}</td>
-            <td>{{ account.name }}</td>
+            <td>{{ account.name }}</td> -->
+
+
+            <td>
+              <div v-if="!account.editing">
+                {{ account.status }}
+              </div>
+              <div v-else>
+                <input v-model="account.status" />
+              </div>
+            </td>
+            <td>
+              <div v-if="!account.editing">
+                {{ account.isDefault }}
+              </div>
+              <div v-else>
+                <input type="checkbox" v-model="account.isDefault" />
+              </div>
+            </td>
+            <td>
+              <div v-if="!account.editing">
+                {{ account.name }}
+              </div>
+              <div v-else>
+                <input v-model="account.name" />
+              </div>
+            </td>
+
+
+
             <td>{{ account.createdAt }}</td>
+            <td v-if="!account.editing"><button @click='toggleEditing(account)' >Edit</button></td>
+            <td v-if="account.editing">
+              <button  @click="saveChanges(account)">Save</button>
+              <button  @click="cancelEditing(account)">Cancel</button>
+            </td>
           </tr>
         </tbody>
       </table>
