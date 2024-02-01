@@ -24,9 +24,14 @@ export default {
   },
   methods: {
     ...mapActions(cockpitStore, ['connect']),
+    ...mapActions(useAccountStore,['updateAccount']),
 
     async doAddAccount( currency) {
       await this.addAccount( currency)
+    },
+
+    async redirectUpdateAccount( ) {
+     this.$router.push(`/accounts/accountUpdate`)
     },
     addAccount() {
       this.$router.push(`/accounts/newAccount`)
@@ -62,6 +67,7 @@ export default {
           </tr>
         </tbody>
       </table>
+      <button @click="redirectUpdateAccount" type="submit">Update Account</button>
     </div>
     <br />
     <div class="Balance Transfer">

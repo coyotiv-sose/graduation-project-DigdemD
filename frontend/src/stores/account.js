@@ -16,6 +16,10 @@ export const useAccountStore = defineStore('account', {
     async addAccount( currency) {
       const newAccount = (await axios.post('/accounts', {currency: currency})).data
       return newAccount
+    },
+     async updateAccount( ) {
+      const newAccount = (await axios.put('/accounts', {currency: currency})).data
+      return newAccount
     }
   }
 })
