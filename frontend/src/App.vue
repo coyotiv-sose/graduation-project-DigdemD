@@ -40,6 +40,7 @@ export default {
         <RouterLink v-if="user" to="/">Home</RouterLink>
         <RouterLink v-if="user" to="/about">About</RouterLink>
         <RouterLink v-if="!user" to="/login">Login</RouterLink>
+        <RouterLink v-if="!user" to="/signUp">Sign Up</RouterLink>
         <RouterLink v-if="user" to="/cockpit">Cockpit</RouterLink>
         <RouterLink v-if="user" to="/accounts">Accounts</RouterLink>
         <RouterLink v-if="user" to="/tradeHistory">Trade History</RouterLink>
