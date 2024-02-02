@@ -30,9 +30,7 @@ export default {
       await this.addAccount( currency)
     },
 
-    async redirectUpdateAccount( ) {
-     this.$router.push(`/accounts/accountUpdate`)
-    },
+
     addAccount() {
       this.$router.push(`/accounts/newAccount`)
     },
@@ -48,14 +46,17 @@ export default {
 
       account.editing=false
     },
-    //  saveEditing(account, status,name, isDefault ){
-    //     newValues: {
-    //     account.status=this.account.status,
-    //     account.name=this.account.name,
-    //     account.isDefault=this.account.isDefault
-    //     }
-    //   account.editing=true
-    // }
+     async saveEditing(account, status,name, isDefault ){
+      newValues: {
+        account.status,
+        account.name,
+        account.isDefault
+        }
+        await this.updateAccount(newValues)
+        this.$router.push('/accounts')
+        account.editing=true
+    }
+
   }
 }
 </script>
@@ -115,13 +116,13 @@ export default {
             <td>{{ account.createdAt }}</td>
             <td v-if="!account.editing"><button @click='toggleEditing(account)' >Edit</button></td>
             <td v-if="account.editing">
-              <button  @click="saveChanges(account)">Save</button>
+              <button  @click="saveEditing(newValues)">Save</button>
               <button  @click="cancelEditing(account)">Cancel</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button @click="redirectUpdateAccount" type="submit">Update Account</button>
+
     </div>
     <br />
     <div class="Balance Transfer">

@@ -25,11 +25,7 @@ const router = createRouter({
       name: 'newAccount',
       component: () => import('../views/NewAccountView.vue')
     },
-    {
-      path:  '/accounts/accountUpdate',
-      name: 'accountUpdate',
-      component: () => import('../views/AccountUpdateView.vue')
-    },
+
     {
       path: '/:userId/tradeHistory',
       name: 'tradeHistory',
