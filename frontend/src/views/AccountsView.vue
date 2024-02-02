@@ -37,13 +37,14 @@ export default {
       this.$router.push(`/accounts/newAccount`)
     },
     toggleEditing(account){
+      account.originalData = {...account}
       account.editing=true
     },
     cancelEditing(account){
-      //fix cancel func
-      account.status=account.status
-      account.name=account.name
-      account.isDefault=account.isDefault
+
+      account.status=account.originalData.status
+      account.name=account.originalData.name
+      account.isDefault=account.originalData.isDefault
 
       account.editing=false
     },
