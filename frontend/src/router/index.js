@@ -21,6 +21,11 @@ const router = createRouter({
       component: () => import('../views/AccountsView.vue')
     },
     {
+      path: '/accounts/externalTransfer',
+      name: 'externalTransfer',
+      component: () => import('../views/ExternalTransferView.vue')
+    },
+    {
       path: '/accounts/newAccount',
       name: 'newAccount',
       component: () => import('../views/NewAccountView.vue')

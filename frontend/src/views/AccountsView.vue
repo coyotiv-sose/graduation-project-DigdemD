@@ -62,7 +62,11 @@ export default {
     },
     closeModal() {
         this.isModalOpen = false;
+    },
+    directExternal(){
+      this.$router.push('/accounts/externalTransfer')
     }
+
 
   }
 }
