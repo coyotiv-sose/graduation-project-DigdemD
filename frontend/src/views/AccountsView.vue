@@ -1,7 +1,6 @@
 <script>
 import { useAccountStore } from '@/stores/account'
 import { mapStores, mapActions, mapState } from 'pinia'
-import axios from 'axios'
 import { useAuthenticationStore } from '@/stores/authentication'
 import { cockpitStore } from '@/stores/cockpit'
 
@@ -10,7 +9,8 @@ export default {
   components: {},
   data() {
     return {
-      accounts: []
+      accounts: [],
+      isModalOpen: false
     }
   },
   async mounted() {
@@ -31,7 +31,7 @@ export default {
     },
 
 
-    addAccount() {
+    redirectAddAccount() {
       this.$router.push(`/accounts/newAccount`)
     },
     toggleEditing(account){
@@ -46,15 +46,22 @@ export default {
 
       account.editing=false
     },
-     async saveEditing(account, status,name, isDefault ){
-      newValues: {
-        account.status,
-        account.name,
-        account.isDefault
-        }
-        await this.updateAccount(newValues)
-        this.$router.push('/accounts')
-        account.editing=true
+    async saveEditing(account){
+      const newValues= {
+        status: account.status,
+        name: account.name,
+        isDefault: account.isDefault
+      }
+      await this.updateAccount(account._id, newValues)
+      this.$router.push('/accounts')
+      account.editing=false
+    },
+    openModal() {
+        console.log('openModal function called')
+        this.isModalOpen = true;
+    },
+    closeModal() {
+        this.isModalOpen = false;
     }
 
   }
@@ -116,24 +123,28 @@ export default {
             <td>{{ account.createdAt }}</td>
             <td v-if="!account.editing"><button @click='toggleEditing(account)' >Edit</button></td>
             <td v-if="account.editing">
-              <button  @click="saveEditing(newValues)">Save</button>
+              <button  @click="saveEditing(account)">Save</button>
               <button  @click="cancelEditing(account)">Cancel</button>
             </td>
           </tr>
         </tbody>
       </table>
-
     </div>
     <br />
-    <div class="Balance Transfer">
-      <href>Balance Transfer</href>
+    <div class="BalanceTransfer">
+      <button @click="openModal()">Balance Transfer</button>
+
+        <div v-if="isModalOpen" class="modal">
+          <p>External or Internal Transfer?</p>
+          <button @click="directInternal()">Internal Transfer</button>
+          <button @click="directExternal()">External Transfer</button>
+          <button @click="closeModal()">Close</button>
+        </div>
+
     </div>
     <div class="AddAccount">
       <h1>Would you like to open a new account?</h1>
-      <!-- <button @click="doExecuteTrade(pair, 'sell', pair.sellRate)">
-        Add Account: {{ pair.sellRate }}
-      </button> -->
-      <button @click="addAccount()">Open New Account</button>
+      <button @click="redirectAddAccount()">Open New Account</button>
     </div>
   </main>
 </template>
@@ -154,4 +165,16 @@ td {
 th {
   background-color: #f2f2f2;
 }
+.modal {
+      display: block;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      border: 2px solid black;
+      background-color: rgb(19, 115, 19);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
 </style>
