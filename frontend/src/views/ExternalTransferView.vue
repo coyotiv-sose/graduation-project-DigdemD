@@ -7,15 +7,36 @@ export default{
   components: {},
   data(){
     return {
-      selectedAccount:''
+      selectedAccount:'',
+      BIC: '',
+      IBAN: '',
+      INSTITUTION: '',
+      NAME: '',
+      AMOUNT: ''
     }
   },
   mounted(){},
   computed:{
     ...mapState(useAuthenticationStore, ['user'])
   },
-  methods:{}
+  methods:{
+  redirectToAccounts(){
+    this.$router.push('/accounts')
+  },
+  resetPage(){
+    this.selectedAccount = ''
+      this.BIC = ''
+      this.IBAN = ''
+      this.INSTITUTION = ''
+      this.NAME = ''
+      this.AMOUNT = ''
+  },
+  async doExecuteTransfer(){
+    //add fuction parameters and mapActions after store definition
+      await this.doExecuteTransfer()
+  }
 
+  }
 }
 </script>
 <template>
@@ -46,6 +67,9 @@ export default{
       <p style="margin-right: 10px;">Receiver institution: {{ AMOUNT }}</p>
       <input v-model="AMOUNT" placeholder="pls insert amount ">
     </div>
+    <button @click="redirectToAccounts">Back to my Accounts</button>
+    <button @click="resetPage">Discard</button>
+    <button @click="doExecuteTransfer">Execute Transfer</button>
   </main>
 </template>
 <style></style>
