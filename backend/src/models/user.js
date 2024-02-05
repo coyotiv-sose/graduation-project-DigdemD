@@ -104,18 +104,7 @@ class User {
       }
     }
   }
-  async externalBalanceTransfer(amount, { from, to }) {
-    const senderAccount = from
-    const receiverAccount = to
 
-    if (!senderAccount) {
-      //const receiverAccount = this.accounts.find(account => account._id === receiverAccountId)
-      return await receiverAccount.deposit(amount)
-    } else if (!receiverAccount) {
-      //  const senderAccount = this.accounts.find(account => account._id === senderAccountId)
-      return await senderAccount.deposit(amount)
-    }
-  }
   //need to talk about logic refactor edilecek
   updateSettings(dateOfBirth, currencyPairs, minTradeLimit, maxTradeLimit, clickAndTrade) {
     if (dateOfBirth !== null) {

@@ -1,18 +1,19 @@
 <script>
-import { mapState } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import { useAuthenticationStore } from '@/stores/authentication'
+import { useBalanceTransferStore } from '@/stores/balanceTransfer'
 
 export default{
   name:'ExternalTransferView',
   components: {},
   data(){
     return {
-      selectedAccount:'',
+      selectedAccount:{},
       BIC: '',
       IBAN: '',
-      INSTITUTION: '',
-      NAME: '',
-      AMOUNT: ''
+      institution: '',
+      name: '',
+      amount: ''
     }
   },
   mounted(){},
@@ -20,20 +21,25 @@ export default{
     ...mapState(useAuthenticationStore, ['user'])
   },
   methods:{
-  redirectToAccounts(){
+    ...mapActions(useBalanceTransferStore, ['executeTransfer']),
+
+    redirectToAccounts(){
     this.$router.push('/accounts')
   },
   resetPage(){
     this.selectedAccount = ''
       this.BIC = ''
       this.IBAN = ''
-      this.INSTITUTION = ''
-      this.NAME = ''
-      this.AMOUNT = ''
+      this.institution = ''
+      this.name = ''
+      this.amount =0
   },
   async doExecuteTransfer(){
     //add fuction parameters and mapActions after store definition
-      await this.doExecuteTransfer()
+    console.log('///selectedAccountId', this.selectedAccount._id )
+    console.log('///amount', this.amount )
+      await this.executeTransfer(this.selectedAccount, this.IBAN,this.amount)
+      console.log('call execute transfer')
   }
 
   }
@@ -44,7 +50,7 @@ export default{
     <h1>External Balance Transfer</h1>
     <div> Sender Account: {{selectedAccount}}
       <select v-model="selectedAccount">
-      <option v-for="account in user.accounts" :key="account._id">{{ account._id }} - {{ account.currency }} - {{ account.name }}</option>
+      <option :value='account._id' v-for="account in user.accounts" :key="account._id">{{ account._id }} - {{ account.currency }} - {{ account.name }}</option>
       </select>
     </div>
     <div style="display: flex; align-items: center;">
@@ -56,16 +62,16 @@ export default{
       <input v-model="IBAN" placeholder="pls insert IBAN">
     </div>
     <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Receiver institution: {{ INSTITUTION }}</p>
-      <input v-model="INSTITUTION" placeholder="pls insert receiver institution ">
+      <p style="margin-right: 10px;">Receiver institution: {{ institution }}</p>
+      <input v-model="institution" placeholder="pls insert receiver institution ">
     </div>
     <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Receiver name: {{ NAME }}</p>
-      <input v-model="NAME" placeholder="pls insert receiver name ">
+      <p style="margin-right: 10px;">Receiver name: {{ name }}</p>
+      <input v-model="name" placeholder="pls insert receiver name ">
     </div>
     <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Receiver institution: {{ AMOUNT }}</p>
-      <input v-model="AMOUNT" placeholder="pls insert amount ">
+      <p style="margin-right: 10px;">Amount: {{ amount }}</p>
+      <input v-model="amount" placeholder="pls insert amount ">
     </div>
     <button @click="redirectToAccounts">Back to my Accounts</button>
     <button @click="resetPage">Discard</button>

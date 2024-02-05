@@ -35,22 +35,6 @@ router.post('/', async function (req, res, next) {
 
   res.status(200).send(newUser)
 })
-//post externalTransfer --ok
-router.post(`/:userId/transfers`, async function (req, res, next) {
-  const { userId } = req.params
-  const { senderAccountId, receiverAccountId, amount } = req.body
-
-  const user = await User.findById(userId)
-  const senderAccount = await Account.findById(senderAccountId)
-  const receiverAccount = await Account.findById(receiverAccountId)
-
-  let transfer = await user.externalBalanceTransfer(amount, {
-    from: senderAccount,
-    to: receiverAccount,
-  })
-  console.log(`we would like to see transfer ${transfer}`)
-  res.send({ transferredAmount: transfer })
-})
 
 //delete user --ok
 router.delete('/:userId', async function (req, res, next) {

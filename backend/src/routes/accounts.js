@@ -35,4 +35,16 @@ router.put('/:accountId', async function (req, res, next) {
   res.send(account)
 })
 
+//post externalTransfer --ok
+router.post(`/transfers`, async function (req, res, next) {
+  const { senderAccountId, receiverAccountIBAN, amount } = req.body
+
+  const senderAccount = await Account.findById(senderAccountId)
+  // const receiverAccount = await Account.findById(receiverAccountId)
+  console.log('------sender account----', senderAccount)
+  let transfer = await senderAccount.externalBalanceTransfer(amount, receiverAccountIBAN)
+  console.log(`we would like to see transfer ${transfer}`)
+  res.send({ transferredAmount: transfer })
+})
+
 module.exports = router

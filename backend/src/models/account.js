@@ -42,6 +42,11 @@ class Account {
     return this.balance
   }
 
+  async externalBalanceTransfer(amount, receiverAccountIBAN) {
+    //const receiverAccount = this.accounts.find(account => account._id === receiverAccountId)
+    return await this.withdraw(amount)
+  }
+
   get transactions() {
     //return this.#transactions.slice()
   }
