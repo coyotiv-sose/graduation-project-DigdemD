@@ -53,24 +53,24 @@ export default{
       <option :value='account._id' v-for="account in user.accounts" :key="account._id">{{ account._id }} - {{ account.currency }} - {{ account.name }}</option>
       </select>
     </div>
-    <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Receiver BIC: {{ BIC }}</p>
+    <div class="input-group">
+      <p class="label">Receiver BIC: {{ BIC }}</p>
       <input v-model="BIC" placeholder="pls insert receiverBIC Code">
     </div>
-    <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Receiver IBAN: {{ IBAN }}</p>
+    <div class="input-group">
+      <p class="label">Receiver IBAN: {{ IBAN }}</p>
       <input v-model="IBAN" placeholder="pls insert IBAN">
     </div>
-    <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Receiver institution: {{ institution }}</p>
+    <div class="input-group">
+      <p class="label">Receiver institution: {{ institution }}</p>
       <input v-model="institution" placeholder="pls insert receiver institution ">
     </div>
-    <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Receiver name: {{ name }}</p>
+    <div class="input-group">
+      <p class="label">Receiver name: {{ name }}</p>
       <input v-model="name" placeholder="pls insert receiver name ">
     </div>
-    <div style="display: flex; align-items: center;">
-      <p style="margin-right: 10px;">Amount: {{ amount }}</p>
+    <div class="input-group">
+      <p class="label">Amount: {{ amount }}</p>
       <input v-model="amount" placeholder="pls insert amount ">
     </div>
     <button @click="redirectToAccounts">Back to my Accounts</button>
@@ -78,4 +78,13 @@ export default{
     <button @click="doExecuteTransfer">Execute Transfer</button>
   </main>
 </template>
-<style></style>
+<style>
+.input-group {
+  display: flex;
+  align-items: center;
+}
+.label {
+  margin-right: 10px;
+}
+
+</style>
