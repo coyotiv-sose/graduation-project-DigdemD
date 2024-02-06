@@ -12,7 +12,9 @@ router.get('/', async function (req, res, next) {
 router.get('/all', async function (req, res, next) {
   console.log(req.session)
   const user = await User.findOne({ email: req.session.passport.user })
-  res.send(user.accounts)
+  const activeAccounts = user.accounts.filter(account => account.status !== 'Passive')
+  // res.send(user.accounts)
+  res.send(activeAccounts)
 })
 //post (create) new Account --ok
 router.post('/', async function (req, res, next) {
