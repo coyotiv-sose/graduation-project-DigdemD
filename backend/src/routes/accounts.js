@@ -41,8 +41,20 @@ router.post(`/transfers`, async function (req, res, next) {
 
   const senderAccount = await Account.findById(senderAccountId)
   // const receiverAccount = await Account.findById(receiverAccountId)
-  console.log('------sender account----', senderAccount)
+
   let transfer = await senderAccount.externalBalanceTransfer(amount, receiverAccountIBAN)
+  console.log(`we would like to see transfer ${transfer}`)
+  res.send({ transferredAmount: transfer })
+})
+
+//post internalTransfer
+router.post(`/internalTransfers`, async function (req, res, next) {
+  const { senderAccountId, receiverAccountId, amount } = req.body
+
+  const senderAccount = await Account.findById(senderAccountId)
+  const receiverAccount = await Account.findById(receiverAccountId)
+
+  let transfer = await senderAccount.internalBalanceTransfer(amount, receiverAccount)
   console.log(`we would like to see transfer ${transfer}`)
   res.send({ transferredAmount: transfer })
 })
