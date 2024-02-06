@@ -2,7 +2,7 @@
 import { useAccountStore } from '@/stores/account'
 import { mapStores, mapActions, mapState } from 'pinia'
 import { useAuthenticationStore } from '@/stores/authentication'
-import { cockpitStore } from '@/stores/cockpit'
+
 
 export default {
   name: 'AccountsView',
@@ -14,23 +14,19 @@ export default {
     }
   },
   async mounted() {
-    this.connect()
     this.accounts = await this.accountStore.fetchAccounts()
-    console.log ('we would like to see accoount', this.accounts)
   },
   computed: {
     ...mapStores(useAccountStore),
     ...mapState(useAuthenticationStore, ['user'])
   },
   methods: {
-    ...mapActions(cockpitStore, ['connect']),
+
     ...mapActions(useAccountStore,['updateAccount']),
 
     async doAddAccount( currency) {
       await this.addAccount( currency)
     },
-
-
     redirectAddAccount() {
       this.$router.push(`/accounts/newAccount`)
     },
@@ -39,7 +35,6 @@ export default {
       account.editing=true
     },
     cancelEditing(account){
-
       account.status=account.originalData.status
       account.name=account.originalData.name
       account.isDefault=account.originalData.isDefault
@@ -57,7 +52,6 @@ export default {
       account.editing=false
     },
     openModal() {
-        console.log('openModal function called')
         this.isModalOpen = true;
     },
     closeModal() {
@@ -69,8 +63,6 @@ export default {
     directInternal(){
       this.$router.push('/accounts/internalTransfer')
     }
-
-
   }
 }
 </script>
@@ -98,8 +90,6 @@ export default {
             <!-- <td>{{ account.status }}</td>
             <td>{{ account.isDefault }}</td>
             <td>{{ account.name }}</td> -->
-
-
             <td>
               <div v-if="!account.editing">
                 {{ account.status }}
@@ -124,9 +114,6 @@ export default {
                 <input v-model="account.name" />
               </div>
             </td>
-
-
-
             <td>{{ account.createdAt }}</td>
             <td v-if="!account.editing"><button @click='toggleEditing(account)' >Edit</button></td>
             <td v-if="account.editing">
