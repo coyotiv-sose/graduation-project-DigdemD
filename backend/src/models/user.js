@@ -88,23 +88,6 @@ class User {
     return newTrade
   }
 
-  internalBalanceTransfer(amount, { from, to }) {
-    const senderAccountId = from
-    const receiverAccountId = to
-    //balance transfer withdraw leg
-    for (let i = 0; i < this.accounts.length; i++) {
-      if (this.accounts[i].accId === senderAccountId) {
-        this.accounts[i].withdraw(amount)
-      }
-    }
-    //balance transfer deposit leg
-    for (let j = 0; j < this.accounts.length; j++) {
-      if (this.accounts[j].accId === receiverAccountId) {
-        this.accounts[j].deposit(amount)
-      }
-    }
-  }
-
   //need to talk about logic refactor edilecek
   updateSettings(dateOfBirth, currencyPairs, minTradeLimit, maxTradeLimit, clickAndTrade) {
     if (dateOfBirth !== null) {

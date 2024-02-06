@@ -47,6 +47,17 @@ class Account {
     return await this.withdraw(amount)
   }
 
+  async internalBalanceTransfer(amount, receiverAccountId) {
+    const receiverAccount = Account.findById(receiverAccountId)
+
+    const withdrawResult = await this.withdraw(amount)
+    const depositResult = await receiverAccount.deposit(amount)
+    return {
+      withdrawResult,
+      depositResult,
+    }
+  }
+
   get transactions() {
     //return this.#transactions.slice()
   }
