@@ -11,6 +11,10 @@ export const useBalanceTransferStore = defineStore('balanceTransfer', {
     async executeTransfer(senderAccountId,receiverAccountId, amount){
       const externalTransfer = (await axios.post(`/accounts/transfers`, {senderAccountId: senderAccountId, receiverAccountId: receiverAccountId, amount: amount } )).data
       return externalTransfer
+    },
+    async executeInternalTransfer(senderAccountId,receiverAccountId, amount){
+      const internalTransfer = (await axios.post(`/accounts/internalTransfers`, {senderAccountId: senderAccountId, receiverAccountId: receiverAccountId, amount: amount } )).data
+      return internalTransfer
     }
   }
 })
