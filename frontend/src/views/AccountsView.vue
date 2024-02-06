@@ -65,6 +65,9 @@ export default {
     },
     directExternal(){
       this.$router.push('/accounts/externalTransfer')
+    },
+    directInternal(){
+      this.$router.push('/accounts/internalTransfer')
     }
 
 
