@@ -37,7 +37,7 @@ const router = createRouter({
     },
 
     {
-      path: '/:userId/tradeHistory',
+      path: '/tradeHistory',
       name: 'tradeHistory',
       component: () => import('../views/TradesView.vue')
     },
