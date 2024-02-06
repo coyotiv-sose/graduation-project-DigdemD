@@ -36,9 +36,9 @@ export default {
           ? pairName.slice(0, 3).toUpperCase()
           : pairName.slice(3, 6).toUpperCase()
 
-      const buyAccount = this.user.accounts.find((account) => account.currency == buyCurrency)
+      const buyAccount = this.user.accounts.find((account) => (account.currency == buyCurrency && account.isDefault=== true))
 
-      const sellAccount = this.user.accounts.find((account) => account.currency == sellCurrency)
+      const sellAccount = this.user.accounts.find((account) => (account.currency == sellCurrency && account.isDefault=== true))
 
       return { buyAccount, sellAccount }
     },
@@ -56,6 +56,7 @@ export default {
         this.valueDate,
         accounts.buyAccount._id,
         accounts.sellAccount._id
+
       )
       this.$router.push('/tradeHistory')
     }
