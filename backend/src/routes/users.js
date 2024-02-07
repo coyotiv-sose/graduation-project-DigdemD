@@ -9,9 +9,9 @@ router.get('/', async function (req, res, next) {
   res.send(await User.find())
 })
 //get single user(dynamic)
-router.get('/:userName', async function (req, res, next) {
-  const { userName } = req.params
-  const user = User.findOne({ name: req.params.userName })
+router.get('/user', async function (req, res, next) {
+  const { userId } = req.body
+  const user = User.findById(userId)
 
   res.send(await user)
 })
