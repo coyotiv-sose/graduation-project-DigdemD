@@ -52,7 +52,7 @@ export default{
     </div>
     <div class="input-group">
       <p class="label">Amount: {{ amount }}</p>
-      <input v-model="amount" placeholder="pls insert amount ">
+      <input type="number" v-model="amount" placeholder="pls insert amount ">
     </div>
     <button @click="redirectToAccounts">Back to my Accounts</button>
     <button @click="resetPage">Discard</button>
