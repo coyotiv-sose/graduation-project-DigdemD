@@ -29,9 +29,8 @@ const userSchema = new mongoose.Schema(
 
 class User {
   async openAccount(currency) {
-    //Check if users first account with required ccy. If yes it will be set as default account with this ccy
     let isDefault = false
-    //retrieve users account
+
     const accountsList = await Account.find({ owner: this._id }).lean().exec()
     const accountsCurrency = accountsList.map(accounts => accounts.currency)
     accountsCurrency.includes(currency) ? (isDefault = false) : (isDefault = true)
@@ -42,14 +41,7 @@ class User {
     await this.save()
     return newAccount
   }
-  //tasi
-  deleteAccount(accId) {
-    for (let i = 0; i < this.accounts.length; i++) {
-      if (this.accounts[i].accId === accId) {
-        this.accounts[i].status = 'Passive'
-      }
-    }
-  }
+
   async executeTrade(currencyPair, buySellFlag, executionRate, amount, valueDate, buyAccount, sellAccount) {
     const buyCurrency =
       buySellFlag === 'buy' ? currencyPair.slice(0, 3).toUpperCase() : currencyPair.slice(3, 6).toUpperCase()
