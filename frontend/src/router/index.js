@@ -35,11 +35,15 @@ const router = createRouter({
       name: 'newAccount',
       component: () => import('../views/NewAccountView.vue')
     },
-
     {
       path: '/tradeHistory',
       name: 'tradeHistory',
       component: () => import('../views/TradesView.vue')
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('../views/SettingsView.vue')
     },
     {
       path: '/login', // the url u type in browser such as localhost:5137/test
