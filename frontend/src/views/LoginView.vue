@@ -25,7 +25,7 @@ export default {
   <form v-on:submit.prevent>
     <input type="text" placeholder="Email" v-model="email" required />
     <input type="password" placeholder="Password" v-model="password" required />
-    <button type="submit" @click="doLogin">Login</button>
+    <button class="btn btn-primary" type="submit" @click="doLogin">Login</button>
     <label>{{ status }}</label>
     <label v-if="user">Are u allowed to see this?</label>
   </form>
