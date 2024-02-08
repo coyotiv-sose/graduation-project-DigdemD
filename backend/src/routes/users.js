@@ -43,15 +43,13 @@ router.delete('/:userId', async function (req, res, next) {
 
   res.sendStatus(200)
 })
-//update user --ok
+//update user
 router.put('/:userId', async function (req, res, next) {
   const { userId } = req.params
-  const { surname, email } = req.body
-  const user = await User.findById(userId)
-  user.surname = surname
-  user.email = email
+  const { newValues } = req.body
+  let user = await User.findByIdAndUpdate(userId, newValues, { new: true })
 
-  res.send({ surname: user.surname, email: user.email })
+  res.send(user)
 })
 
 module.exports = router
