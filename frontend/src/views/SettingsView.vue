@@ -13,7 +13,11 @@ export default {
       mobile: '',
       minTradeLimit: 0,
       maxTradeLimit: 0,
-      clickAndTrade: true
+      clickAndTrade: true,
+      box1: ['EUR/USD', 'EUR/TRY', 'EUR/JPY', 'GBP/CAD', 'GBP/USD'],
+      box2: [],
+      selectedOptions: [],
+      selectedOptions2: []
     }
   },
   async mounted() {
@@ -36,6 +40,20 @@ export default {
         clickAndTrade: this.clickAndTrade || this.user.clickAndTrade
       }
       this.updateUser(this.user._id, newValues)
+    },
+    moveToBox2() {
+      this.selectedOptions.forEach((option) => {
+        this.box2.push(option)
+        this.box1 = this.box1.filter((item) => item !== option)
+      })
+      this.selectedOptions = []
+    },
+    moveToBox1() {
+      this.selectedOptions2.forEach((option) => {
+        this.box1.push(option)
+        this.box2 = this.box2.filter((item) => item !== option)
+      })
+      this.selectedOptions2 = []
     }
   }
 }
@@ -64,6 +82,19 @@ export default {
       </div>
       <div>
         <h1>Platform Settings</h1>
+        <div id="app">
+          <select v-model="selectedOptions" multiple>
+            <option v-for="option in box1" :value="option">{{ option }}</option>
+          </select>
+          <div>
+            <button @click="moveToBox2">add</button>
+            <br />
+            <button @click="moveToBox1">remove</button>
+          </div>
+          <select v-model="selectedOptions2" multiple>
+            <option v-for="option in box2">{{ option }}</option>
+          </select>
+        </div>
         <br />
         Min Trade Limit(USD) <input v-model="minTradeLimit" :placeholder="user.minTradeLimit" />
         <br />
