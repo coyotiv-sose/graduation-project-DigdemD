@@ -48,8 +48,8 @@ export default {
     <input type="text" placeholder="Mobile" v-model="mobile" required />
     <input type="text" placeholder="Password" v-model="password" required />
     <button type="submit" @click="signUp">SignUp</button>
-    <label>{{ status }}</label>
-    <label v-if="user">Wilkommen</label>
+    <label>Are you already signed up?</label>
+    <RouterLink to="/login">Login</RouterLink>
   </form>
 </template>
 <style scoped>

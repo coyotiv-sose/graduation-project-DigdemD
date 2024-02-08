@@ -26,8 +26,8 @@ export default {
     <input type="text" placeholder="Email" v-model="email" required />
     <input type="password" placeholder="Password" v-model="password" required />
     <button type="submit" @click="doLogin">Login</button>
-    <label>{{ status }}</label>
-    <label v-if="user">Are u allowed to see this?</label>
+    <label>Not yet a Gybing FX Trader?</label>
+    <RouterLink to="/signUp">Sign Up</RouterLink>
   </form>
 </template>
 <style scoped>
