@@ -29,11 +29,11 @@ export default {
     doUpdateUser() {
       const newValues = {
         name: this.name || this.user.name,
-        surname: this.surname,
-        mobile: this.mobile,
-        minTradeLimit: this.minTradeLimit,
-        maxTradeLimit: this.maxTradeLimit,
-        clickAndTrade: this.clickAndTrade
+        surname: this.surname || this.user.surname,
+        mobile: this.mobile || this.user.mobile,
+        minTradeLimit: this.minTradeLimit || this.user.minTradeLimit,
+        maxTradeLimit: this.maxTradeLimit || this.user.maxTradeLimit,
+        clickAndTrade: this.clickAndTrade || this.user.clickAndTrade
       }
       this.updateUser(this.user._id, newValues)
     }
@@ -46,16 +46,20 @@ export default {
       <div class="UserPersonalDetails">
         <!-- //burayi tamamla -->
         <h1>Personal Settings</h1>
-        <label for="name">name</label>
+        <label for="name">name </label>
         <input id="name" v-model="name" :placeholder="user.name" />
         <br />
-        surname <input v-model="surname" :placeholder="user.surname" />
+        <label for="surname">surname </label>
+        <input v-model="surname" :placeholder="user.surname" />
         <br />
-        e-mail <input disabled :placeholder="user.email" />
+        <label for="email">email </label>
+        <input v-model="email" disabled :placeholder="user.email" />
         <br />
-        password <input disabled :placeholder="user.password" />
+        <label for="password">password </label>
+        <input v-model="password" disabled :placeholder="user.password" />
         <br />
-        mobile <input v-model="mobile" :placeholder="user.mobile" /> {{}}
+        <label for="mobile">mobile </label>
+        <input v-model="mobile" :placeholder="user.mobile" />
         <br />
       </div>
       <div>
