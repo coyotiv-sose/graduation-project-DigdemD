@@ -85,7 +85,7 @@ export default {
 <style scoped>
 .trade-box {
   border: 1px solid black;
-  width: 50vw;
+  width: 20vw;
   height: 20vh;
   padding: 10px;
   display: inline-block;
