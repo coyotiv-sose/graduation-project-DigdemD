@@ -82,11 +82,11 @@ export default {
       </div>
       <div>
         <h1>Platform Settings</h1>
-        <div id="app">
+        <div id="app" class="select-container">
           <select v-model="selectedOptions" multiple>
             <option v-for="option in box1" :value="option">{{ option }}</option>
           </select>
-          <div>
+          <div class="button-look">
             <button @click="moveToBox2">add</button>
             <br />
             <button @click="moveToBox1">remove</button>
@@ -106,4 +106,15 @@ export default {
     </form>
   </main>
 </template>
-<style></style>
+<style>
+.select-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.button-look {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+</style>
