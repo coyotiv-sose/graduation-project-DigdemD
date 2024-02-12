@@ -22,27 +22,22 @@ export default {
   },
   async mounted() {
     const availableCurrencyPairs = ['EUR/USD', 'EUR/TRY', 'EUR/JPY', 'GBP/CAD', 'GBP/USD']
-    ;(this.name = this.user.name),
-      (this.surname = this.user.surname),
-      (this.mobile = this.user.mobile),
-      (this.minTradeLimit = this.user.minTradeLimit),
-      (this.maxTradeLimit = this.user.maxTradeLimit),
-      (this.clickAndTrade = this.user.clickAndTrade),
-      (this.unselectedCurrencies = availableCurrencyPairs.filter(
-        (pair) => !this.user.currencyPairs.includes(pair)
-      )),
-      (this.selectedCurrencies = this.user.currencyPairs)
-
-    // this.box1 = this.box1.filter((item) => item !== option)
-
-    // this.user = await this.settingStore.fetchUser()
+    this.name = this.user.name
+    this.surname = this.user.surname
+    this.mobile = this.user.mobile
+    this.minTradeLimit = this.user.minTradeLimit
+    this.maxTradeLimit = this.user.maxTradeLimit
+    this.clickAndTrade = this.user.clickAndTrade
+    this.unselectedCurrencies = availableCurrencyPairs.filter(
+      (pair) => !this.user.currencyPairs.includes(pair)
+    )
+    this.selectedCurrencies = this.user.currencyPairs
   },
   computed: {
     ...mapStores(useSettingStore),
     ...mapState(useAuthenticationStore, ['user'])
   },
   methods: {
-    // ...mapActions(useSettingStore, ['fetchUser'])
     ...mapActions(useSettingStore, ['updateUser']),
     doUpdateUser() {
       const newValues = {
