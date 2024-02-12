@@ -97,6 +97,7 @@ export default {
       </div>
       <div>
         <h1>Platform Settings</h1>
+        <p>Currency Pair Selection</p>
         <div id="app" class="select-container">
           <select v-model="selectedOptions" multiple>
             <option v-for="option in box1" :value="option">{{ option }}</option>
