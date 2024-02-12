@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     currencyPairs: [String],
     minTradeLimit: { type: Number, default: 1000 },
     maxTradeLimit: { type: Number, default: 1000000 },
-    clickAndTrade: Boolean,
+    clickAndTrade: { type: Boolean, default: true },
     countOfTrade: { type: Number, default: 0 },
     tradeVolume: { type: Number, default: 0 },
   },
