@@ -11,16 +11,30 @@ export default {
       name: '',
       surname: '',
       mobile: '',
-      minTradeLimit: 0,
-      maxTradeLimit: 0,
-      clickAndTrade: true,
-      box1: ['EUR/USD', 'EUR/TRY', 'EUR/JPY', 'GBP/CAD', 'GBP/USD'],
+      minTradeLimit: '',
+      maxTradeLimit: '',
+      clickAndTrade: '',
+      box1: [],
       box2: [],
       selectedOptions: [],
       selectedOptions2: []
     }
   },
   async mounted() {
+    const availableCurrencyPairs = ['EUR/USD', 'EUR/TRY', 'EUR/JPY', 'GBP/CAD', 'GBP/USD']
+    ;(this.name = this.user.name),
+      (this.surname = this.user.surname),
+      (this.mobile = this.user.mobile),
+      (this.minTradeLimit = this.user.minTradeLimit),
+      (this.maxTradeLimit = this.user.maxTradeLimit),
+      (this.clickAndTrade = this.user.clickAndTrade),
+      (this.box1 = availableCurrencyPairs.filter(
+        (pair) => !this.user.currencyPairs.includes(pair)
+      )),
+      (this.box2 = this.user.currencyPairs)
+
+    // this.box1 = this.box1.filter((item) => item !== option)
+
     // this.user = await this.settingStore.fetchUser()
   },
   computed: {
@@ -37,7 +51,8 @@ export default {
         mobile: this.mobile || this.user.mobile,
         minTradeLimit: this.minTradeLimit || this.user.minTradeLimit,
         maxTradeLimit: this.maxTradeLimit || this.user.maxTradeLimit,
-        clickAndTrade: this.clickAndTrade || this.user.clickAndTrade
+        clickAndTrade: this.clickAndTrade || this.user.clickAndTrade,
+        currencyPairs: this.box2 || this.user.currencyPairs
       }
       this.updateUser(this.user._id, newValues)
     },
@@ -46,14 +61,14 @@ export default {
         this.box2.push(option)
         this.box1 = this.box1.filter((item) => item !== option)
       })
-      this.selectedOptions = []
+      // this.selectedOptions = []
     },
     moveToBox1() {
       this.selectedOptions2.forEach((option) => {
         this.box1.push(option)
         this.box2 = this.box2.filter((item) => item !== option)
       })
-      this.selectedOptions2 = []
+      // this.selectedOptions2 = []
     }
   }
 }
