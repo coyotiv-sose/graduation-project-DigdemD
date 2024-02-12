@@ -14,8 +14,8 @@ export default {
       minTradeLimit: '',
       maxTradeLimit: '',
       clickAndTrade: '',
-      box1: [],
-      box2: [],
+      unselectedCurrencies: [],
+      selectedCurrencies: [],
       selectedOptions: [],
       selectedOptions2: []
     }
@@ -28,10 +28,10 @@ export default {
       (this.minTradeLimit = this.user.minTradeLimit),
       (this.maxTradeLimit = this.user.maxTradeLimit),
       (this.clickAndTrade = this.user.clickAndTrade),
-      (this.box1 = availableCurrencyPairs.filter(
+      (this.unselectedCurrencies = availableCurrencyPairs.filter(
         (pair) => !this.user.currencyPairs.includes(pair)
       )),
-      (this.box2 = this.user.currencyPairs)
+      (this.selectedCurrencies = this.user.currencyPairs)
 
     // this.box1 = this.box1.filter((item) => item !== option)
 
@@ -56,19 +56,19 @@ export default {
       }
       this.updateUser(this.user._id, newValues)
     },
-    moveToBox2() {
+    moveToSelectedCurrencies() {
       this.selectedOptions.forEach((option) => {
-        this.box2.push(option)
-        this.box1 = this.box1.filter((item) => item !== option)
+        this.selectedCurrencies.push(option)
+        this.unselectedCurrencies = this.unselectedCurrencies.filter((item) => item !== option)
       })
-      // this.selectedOptions = []
+      this.selectedOptions = []
     },
-    moveToBox1() {
+    moveToUnselectedCurrencies() {
       this.selectedOptions2.forEach((option) => {
-        this.box1.push(option)
-        this.box2 = this.box2.filter((item) => item !== option)
+        this.unselectedCurrencies.push(option)
+        this.selectedCurrencies = this.selectedCurrencies.filter((item) => item !== option)
       })
-      // this.selectedOptions2 = []
+      this.selectedOptions2 = []
     }
   }
 }
@@ -100,15 +100,15 @@ export default {
         <p>Currency Pair Selection</p>
         <div id="app" class="select-container">
           <select v-model="selectedOptions" multiple>
-            <option v-for="option in box1" :value="option">{{ option }}</option>
+            <option v-for="option in unselectedCurrencies" :value="option">{{ option }}</option>
           </select>
           <div class="button-look">
-            <button @click="moveToBox2">add</button>
+            <button @click="moveToSelectedCurrencies">add</button>
             <br />
-            <button @click="moveToBox1">remove</button>
+            <button @click="moveToUnselectedCurrencies">remove</button>
           </div>
           <select v-model="selectedOptions2" multiple>
-            <option v-for="option in box2">{{ option }}</option>
+            <option v-for="option in selectedCurrencies">{{ option }}</option>
           </select>
         </div>
         <br />
