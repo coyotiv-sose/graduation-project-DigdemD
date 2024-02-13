@@ -9,18 +9,26 @@ export default {
       surname: '',
       email: '',
       mobile: '',
-      password: ''
+      password: '',
+      errorMessage: '',
+      successMessage: ''
     }
   },
   methods: {
+    validateSignUp() {
+      if (!this.name || !this.surname || !this.email || !this.mobile || !this.password) {
+        this.errorMessage = 'Please fill in all fields.'
+      } else {
+        this.successMessage = 'Register successful'
+        this.signUp()
+      }
+    },
     async signUp() {
-      console.log(import.meta.env.VITE_BACKEND_URL)
       const newUser = await axios.post(
         import.meta.env.VITE_BACKEND_URL + '/authentication/newUser',
         {
           name: this.name,
           surname: this.surname,
-
           email: this.email,
           mobile: this.mobile,
           password: this.password
@@ -41,15 +49,17 @@ export default {
 }
 </script>
 <template>
-  <form v-on:submit.prevent>
+  <form @submit.prevent="validateSignUp">
     <input type="text" placeholder="Name" v-model="name" required />
     <input type="text" placeholder="Surname" v-model="surname" required />
     <input type="email" placeholder="Email" v-model="email" required />
     <input type="text" placeholder="Mobile" v-model="mobile" required />
     <input type="text" placeholder="Password" v-model="password" required />
-    <button type="submit" @click="signUp">SignUp</button>
+    <button type="submit" @click.prevent="validateSignUp">SignUp</button>
     <label>Are you already signed up?</label>
     <RouterLink to="/login">Login</RouterLink>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
   </form>
 </template>
 <style scoped>
@@ -59,5 +69,11 @@ form {
   align-items: center;
   justify-content: center;
   height: 50vh;
+}
+.error-message {
+  color: red;
+}
+.success-message {
+  color: green;
 }
 </style>
