@@ -22,13 +22,13 @@ export const cockpitStore = defineStore('cockpit', {
       socket.on('eurusd', (eurusd) => {
         this.currencyPairs[0].buyRate = eurusd
       })
-      socket.on('eurusd', (eurusdsell) => {
+      socket.on('eurusdsell', (eurusdsell) => {
         this.currencyPairs[0].sellRate = eurusdsell
       })
       socket.on('gbpusd', (gbpusd) => {
         this.currencyPairs[1].buyRate = gbpusd
       })
-      socket.on('gbpusd', (gbpusdsell) => {
+      socket.on('gbpusdsell', (gbpusdsell) => {
         this.currencyPairs[1].sellRate = gbpusdsell
       })
     },
