@@ -47,7 +47,7 @@ export default {
         minTradeLimit: this.minTradeLimit || this.user.minTradeLimit,
         maxTradeLimit: this.maxTradeLimit || this.user.maxTradeLimit,
         clickAndTrade: this.clickAndTrade || this.user.clickAndTrade,
-        currencyPairs: this.box2 || this.user.currencyPairs
+        currencyPairs: this.selectedCurrencies || this.user.currencyPairs
       }
       this.updateUser(this.user._id, newValues)
     },
