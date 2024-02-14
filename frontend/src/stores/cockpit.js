@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useAuthenticationStore } from '@/stores/authentication'
 import { io } from 'socket.io-client'
 import axios from 'axios'
 
@@ -16,6 +17,7 @@ export const cockpitStore = defineStore('cockpit', {
 
   actions: {
     connect() {
+      const authStore = useAuthenticationStore()
       const socket = io(import.meta.env.VITE_BACKEND_URL, { withCredentials: true })
       socket.on('eurusd', (eurusd) => {
         this.currencyPairs[0].buyRate = eurusd
