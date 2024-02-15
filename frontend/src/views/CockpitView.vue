@@ -12,7 +12,7 @@ export default {
   data() {
     //return is used  for default value
     return {
-      currencyPairSelect: '',
+      selected: '',
       amount: 1000,
       valueDate: new Date().toISOString().split('T')[0]
     }
@@ -77,9 +77,11 @@ export default {
   <!-- <Header>Header</Header> -->
   <!-- Welcome on Board <this class="user">{{ user.name }}</this> -->
   <h1>Trading Cockpit</h1>
-  <select v-model="currencyPairSelect">
+  <select v-model="selected">
     <option disabled value="">Available Currency Pair</option>
-    <option>GBP/CAD</option>
+    <option v-for="pair in user.currencyPairs">
+      {{ pair }}
+    </option>
   </select>
   <button onclick="addCurrencyPair()">Add(+)</button>
   <br />
