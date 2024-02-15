@@ -78,6 +78,7 @@ export default {
     <br />
     <button @click="doExecuteTrade(pair, 'buy', pair.buyRate)">Buy: {{ pair.buyRate }}</button>
     <button @click="doExecuteTrade(pair, 'sell', pair.sellRate)">Sell: {{ pair.sellRate }}</button>
+    <span @click="removeCurrencyPair(pair)" class="close-icon">&#10006;</span>
   </div>
 
   <br />
@@ -91,5 +92,12 @@ export default {
   display: inline-block;
   margin: 10px;
   background-color: darkgray;
+  position: relative;
+}
+.close-icon {
+  position: absolute; /* to move it at top right */
+  top: 0; /* px */
+  right: 3px; /* px */
+  cursor: pointer; /* for cursor */
 }
 </style>
