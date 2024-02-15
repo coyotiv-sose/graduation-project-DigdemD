@@ -9,8 +9,11 @@ axios.defaults.withCredentials = true
 export const cockpitStore = defineStore('cockpit', {
   state: () => ({
     currencyPairs: [
-      { name: 'eurusd', buyRate: 1.2, sellRate: 1.1 },
-      { name: 'gbpusd', buyRate: 1.5, sellRate: 1.4 }
+      { name: 'EUR/USD', buyRate: 1.2, sellRate: 1.1 },
+      { name: 'GBP/USD', buyRate: 1.5, sellRate: 1.4 },
+      { name: 'EUR/TRY', buyRate: 1.3, sellRate: 1.2 },
+      { name: 'EUR/JPY', buyRate: 1.2, sellRate: 1.1 },
+      { name: 'GBP/CAD', buyRate: 1.0, sellRate: 0.9 }
       // I should add more ccy pairs
     ]
   }),
@@ -30,6 +33,24 @@ export const cockpitStore = defineStore('cockpit', {
       })
       socket.on('gbpusdsell', (gbpusdsell) => {
         this.currencyPairs[1].sellRate = gbpusdsell
+      })
+      socket.on('eurtry', (eurtry) => {
+        this.currencyPairs[2].buyRate = eurtry
+      })
+      socket.on('eurtrysell', (eurtrysell) => {
+        this.currencyPairs[2].sellRate = eurtrysell
+      })
+      socket.on('eurjpy', (eurjpy) => {
+        this.currencyPairs[3].buyRate = eurjpy
+      })
+      socket.on('eurjpysell', (eurjpysell) => {
+        this.currencyPairs[3].sellRate = eurjpysell
+      })
+      socket.on('gbpcad', (gbpcad) => {
+        this.currencyPairs[4].buyRate = gbpcad
+      })
+      socket.on('gbpcadsell', (gbpcadsell) => {
+        this.currencyPairs[4].sellRate = gbpcadsell
       })
     },
     async executeTrade(

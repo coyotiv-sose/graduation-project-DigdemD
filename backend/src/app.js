@@ -139,6 +139,24 @@ app.createSocketServer = function (server) {
     setInterval(() => {
       socket.emit('gbpusdsell', Math.random() + 1)
     }, 1000)
+    setInterval(() => {
+      socket.emit('eurtry', Math.random() + 33)
+    }, 1000)
+    setInterval(() => {
+      socket.emit('eurtrysell', Math.random() + 33)
+    }, 1000)
+    setInterval(() => {
+      socket.emit('eurjpy', Math.random() + 160)
+    }, 1000)
+    setInterval(() => {
+      socket.emit('eurjpysell', Math.random() + 160)
+    }, 1000)
+    setInterval(() => {
+      socket.emit('gbpcad', Math.random() + 1.5)
+    }, 1000)
+    setInterval(() => {
+      socket.emit('gbpcadsell', Math.random() + 1.5)
+    }, 1000)
   })
 }
 console.log('i am alive! & blubb blubb')
