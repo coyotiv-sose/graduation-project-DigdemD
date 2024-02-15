@@ -15,6 +15,7 @@ export default {
       selected: '',
       amount: 1000,
       valueDate: new Date().toISOString().split('T')[0]
+      // selectedCurrencyPairs: this.user.currencyPairs
     }
   },
   mounted() {
@@ -22,7 +23,10 @@ export default {
   },
   computed: {
     ...mapState(cockpitStore, ['currencyPairs']),
-    ...mapState(useAuthenticationStore, ['user'])
+    ...mapState(useAuthenticationStore, ['user']),
+    selectedCurrencyPairs() {
+      return this.currencyPairs.filter((pair) => this.user.currencyPairs.includes(pair.name))
+    }
   },
   methods: {
     ...mapActions(cockpitStore, ['connect', 'executeTrade']),
@@ -69,6 +73,18 @@ export default {
       if (index !== -1) {
         this.currencyPairs.splice(index, 1)
       }
+    },
+    addCurrencyPair(pair) {
+      if (pair) {
+        if (this.selected) {
+          // Seçilen döviz çiftini currencyPairs dizisine ekleyin
+          this.currencyPairs.push({
+            name: this.selected,
+            buyRate: 0, // Bu değerler veri akışından alınacak
+            sellRate: 0 // Bu değerler veri akışından alınacak
+          })
+        }
+      }
     }
   }
 }
@@ -83,9 +99,9 @@ export default {
       {{ pair }}
     </option>
   </select>
-  <button onclick="addCurrencyPair()">Add(+)</button>
+  <button @click="addCurrencyPair(pair)">Add(+)</button>
   <br />
-  <div class="trade-box" v-for="pair in this.currencyPairs" :key="pair.name">
+  <div class="trade-box" v-for="pair in selectedCurrencyPairs" :key="pair.name">
     <p>{{ pair.name.toUpperCase() }}</p>
     <input v-model="amount" type="number" placeholder="Amount" />
     <input v-model="valueDate" type="date" />
