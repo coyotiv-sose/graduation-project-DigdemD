@@ -62,6 +62,12 @@ export default {
         accounts.sellAccount._id
       )
       this.$router.push('/tradeHistory')
+    },
+    removeCurrencyPair(pair) {
+      const index = this.currencyPairs.findIndex((p) => p === pair)
+      if (index !== -1) {
+        this.currencyPairs.splice(index, 1)
+      }
     }
   }
 }
