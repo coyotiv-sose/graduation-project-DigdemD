@@ -43,11 +43,11 @@ export default {
       const buyCurrency =
         buySellFlag === 'buy'
           ? pairName.slice(0, 3).toUpperCase()
-          : pairName.slice(3, 6).toUpperCase()
+          : pairName.slice(4, 7).toUpperCase()
       const sellCurrency =
         buySellFlag === 'sell'
           ? pairName.slice(0, 3).toUpperCase()
-          : pairName.slice(3, 6).toUpperCase()
+          : pairName.slice(4, 7).toUpperCase()
 
       const buyAccount = this.user.accounts.find(
         (account) => account.currency == buyCurrency && account.isDefault === true
@@ -64,6 +64,7 @@ export default {
       const accounts = this.getAccount(pair.name, buySellFlag)
 
       buySellFlag === 'buy' ? (pair.rate = pair.buyRate) : (pair.rate = pair.sellRate)
+
       await this.executeTrade(
         this.user._id,
         pair.name,
