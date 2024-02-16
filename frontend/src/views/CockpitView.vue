@@ -14,18 +14,26 @@ export default {
     return {
       selected: '',
       amount: 1000,
-      valueDate: new Date().toISOString().split('T')[0]
+      valueDate: new Date().toISOString().split('T')[0],
+      loading: false,
+      hiddenPairs: []
       // selectedCurrencyPairs: this.user.currencyPairs
     }
   },
   mounted() {
+    this.loading = true
     this.connect()
+    this.loading = false
   },
   computed: {
     ...mapState(cockpitStore, ['currencyPairs']),
     ...mapState(useAuthenticationStore, ['user']),
     selectedCurrencyPairs() {
-      return this.currencyPairs.filter((pair) => this.user.currencyPairs.includes(pair.name))
+      const newArray = this.currencyPairs.filter(
+        (pair) =>
+          this.user.currencyPairs.includes(pair.name) && !this.hiddenPairs.includes(pair.name)
+      )
+      return newArray.map((pair) => ({ ...pair, show: true }))
     }
   },
   methods: {
@@ -69,10 +77,7 @@ export default {
       this.$router.push('/tradeHistory')
     },
     removeCurrencyPair(pair) {
-      const index = this.currencyPairs.findIndex((p) => p === pair)
-      if (index !== -1) {
-        this.currencyPairs.splice(index, 1)
-      }
+      this.hiddenPairs.push(pair.name)
     },
     addCurrencyPair(pair) {
       if (pair) {
@@ -90,28 +95,38 @@ export default {
 }
 </script>
 <template>
+  <div v-if="loading">Loading</div>
   <!-- <Header>Header</Header> -->
   <!-- Welcome on Board <this class="user">{{ user.name }}</this> -->
-  <h1>Trading Cockpit</h1>
-  <select v-model="selected">
-    <option disabled value="">Available Currency Pair</option>
-    <option v-for="pair in user.currencyPairs">
-      {{ pair }}
-    </option>
-  </select>
-  <button @click="addCurrencyPair(pair)">Add(+)</button>
-  <br />
-  <div class="trade-box" v-for="pair in selectedCurrencyPairs" :key="pair.name">
-    <p>{{ pair.name.toUpperCase() }}</p>
-    <input v-model="amount" type="number" placeholder="Amount" />
-    <input v-model="valueDate" type="date" />
+  <div v-if="!loading">
+    <h1>Trading Cockpit</h1>
+    <select v-model="selected">
+      <option disabled value="">Available Currency Pair</option>
+      <option v-for="pair in user.currencyPairs">
+        {{ pair }}
+      </option>
+    </select>
+    <button @click="addCurrencyPair(pair)">Add(+)</button>
     <br />
-    <button @click="doExecuteTrade(pair, 'buy', pair.buyRate)">Buy: {{ pair.buyRate }}</button>
-    <button @click="doExecuteTrade(pair, 'sell', pair.sellRate)">Sell: {{ pair.sellRate }}</button>
-    <span @click="removeCurrencyPair(pair)" class="close-icon">&#10006;</span>
-  </div>
+    <div
+      class="trade-box"
+      v-for="pair in selectedCurrencyPairs"
+      :key="pair.name"
+      v-show="pair.show"
+    >
+      <p>{{ pair.name.toUpperCase() }}</p>
+      <input v-model="amount" type="number" placeholder="Amount" />
+      <input v-model="valueDate" type="date" />
+      <br />
+      <button @click="doExecuteTrade(pair, 'buy', pair.buyRate)">Buy: {{ pair.buyRate }}</button>
+      <button @click="doExecuteTrade(pair, 'sell', pair.sellRate)">
+        Sell: {{ pair.sellRate }}
+      </button>
+      <span @click="removeCurrencyPair(pair)" class="close-icon">&#10006;</span>
+    </div>
 
-  <br />
+    <br />
+  </div>
 </template>
 <style scoped>
 .trade-box {
