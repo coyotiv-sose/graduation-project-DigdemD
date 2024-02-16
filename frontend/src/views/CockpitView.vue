@@ -80,15 +80,9 @@ export default {
       this.hiddenPairs.push(pair.name)
     },
     addCurrencyPair(pair) {
-      if (pair) {
-        if (this.selected) {
-          // Seçilen döviz çiftini currencyPairs dizisine ekleyin
-          this.currencyPairs.push({
-            name: this.selected,
-            buyRate: 0, // Bu değerler veri akışından alınacak
-            sellRate: 0 // Bu değerler veri akışından alınacak
-          })
-        }
+      const index = this.hiddenPairs.indexOf(pair)
+      if (index !== -1) {
+        this.hiddenPairs.splice(index, 1)
       }
     }
   }
@@ -106,7 +100,7 @@ export default {
         {{ pair }}
       </option>
     </select>
-    <button @click="addCurrencyPair(pair)">Add(+)</button>
+    <button @click="addCurrencyPair(selected)">Add(+)</button>
     <br />
     <div
       class="trade-box"
